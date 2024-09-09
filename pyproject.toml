@@ -1,0 +1,20 @@
+[project]
+name = "PyMC-Server"
+version = "0.0.1"
+authors = [
+  { name="Chris Krempel", email="chris.krempel@pymc-labs.com" },
+  { name="Stephan Mai", email="stephan.mai@pymc-labs.com" },
+]
+description = "Run PyMC everywhere."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/pymc-dev/PyMC-Server"
+Issues = "https://github.com/pymc-devs/PyMC-Server/issues"
+

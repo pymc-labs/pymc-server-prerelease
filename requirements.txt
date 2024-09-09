@@ -1,0 +1,5 @@
+pymc-marketing
+nutpie
+lifetimes
+numba
+ray[default]

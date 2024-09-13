@@ -1,16 +1,19 @@
+import os
 import yaml
 import click
-from sky.usage import usage_lib
-from sky import Task
 import sky
-from sky import serve as serve_lib
-from sky.utils import dag_utils,ux_utils
-from typing import Any, Dict, List, Optional, Tuple, Union
+import pymc_server
+from sky import Task
 from sky import dag as dag_lib
 from sky import task as task_lib
-from file_merger import mergeYaml
-
+from sky import serve as serve_lib
+from sky.usage import usage_lib
+from sky.utils import dag_utils,ux_utils
+from typing import Any, Dict, List, Optional, Tuple, Union
+from pymc_server.utils.yaml import merge_yaml
 from sky.utils import common_utils
+
+
 def load_chain_dag_from_yaml(
     configs: List[Dict[str, Any]],
     env_overrides: Optional[List[Tuple[str, str]]] = None,
@@ -51,7 +54,7 @@ def load_chain_dag_from_yaml(
     dag.name = dag_name
     return dag
 
-def _check_yaml(yamlFile) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
+def _check_yaml(yaml_file) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
     """Checks if entrypoint is a readable YAML file.
 
     Args:
@@ -63,7 +66,7 @@ def _check_yaml(yamlFile) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
     #with open(entrypoint, 'r', encoding='utf-8') as f: # change that - open 
     try:
         is_yaml = True
-        config = list(yaml.safe_load_all(yamlFile))
+        config = list(yaml.safe_load_all(yaml_file))
         if config:
             # FIXME(zongheng): in a chain DAG YAML it only returns the
             # first section. OK for downstream but is weird.
@@ -79,9 +82,33 @@ def _check_yaml(yamlFile) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
 
     return result, is_yaml
 
-def launch(yaml='dev.yaml'):
+def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml"):
+    """
+    Get's the base config for the pymc module
 
-    configs,is_yaml = _check_yaml(mergeYaml(devPath=yaml,pymcPath='pymc.yaml'))
+    Example:
+        ```
+        _get_pymc_config_yaml('pymc-marketing')
+        ```
+
+    """
+    # sanity check 
+    assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
+    base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
+    return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
+
+# FIXME: user file positional parameter
+def launch(entrypoint):
+    print("HOOOOO")
+    print(entrypoint)
+    # get the base config path for the pymc module
+    module_config_path = get_pymc_config_yaml('pymc-marketing')
+    configs, is_yaml = _check_yaml(
+        merge_yaml(
+            user_config_path=entrypoint,
+            pymc_path=module_config_path
+        )
+    )
     print("entrypoint------")
     print(configs)
     entrypoint_name = 'Task',

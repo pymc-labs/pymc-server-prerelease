@@ -1,0 +1,3 @@
+[submodule "nutpie"]
+	path = nutpie
+	url = https://github.com/pymc-devs/nutpie

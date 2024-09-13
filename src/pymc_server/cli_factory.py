@@ -14,6 +14,62 @@ from sky.cli import (
 )
 
 
+def setup_status_factory(func):
+    options = [
+        click.command(),
+        click.option('--all',
+                      '-a',
+                      default=False,
+                      is_flag=True,
+                      required=False,
+                      help='Show all information in full.'),
+        click.option(
+            '--refresh',
+            '-r',
+            default=False,
+            is_flag=True,
+            required=False,
+            help='Query the latest cluster statuses from the cloud provider(s).'),
+        click.option('--ip',
+                      default=False,
+                      is_flag=True,
+                      required=False,
+                      help=('Get the IP address of the head node of a cluster. This '
+                            'option will override all other options. For Kubernetes '
+                            'clusters, the returned IP address is the internal IP '
+                            'of the head pod, and may not be accessible from outside '
+                            'the cluster.')),
+        click.option('--endpoints',
+                      default=False,
+                      is_flag=True,
+                      required=False,
+                      help=('Get all exposed endpoints and corresponding URLs for a'
+                            'cluster. This option will override all other options.')),
+        click.option('--endpoint',
+                      required=False,
+                      default=None,
+                      type=int,
+                      help=('Get the endpoint URL for the specified port number on the '
+                            'cluster. This option will override all other options.')),
+        click.option('--show-managed-jobs/--no-show-managed-jobs',
+                      default=True,
+                      is_flag=True,
+                      required=False,
+                      help='Also show recent in-progress managed jobs, if any.'),
+        click.option('--show-services/--no-show-services',
+                      default=True,
+                      is_flag=True,
+                      required=False,
+                      help='Also show sky serve services, if any.'),
+        click.argument('clusters',
+                        required=False,
+                        type=str,
+                        nargs=-1,
+                        **_get_shell_complete_args(_complete_cluster_name)),
+    ]
+    for option in reversed(options):
+        func = option(func)
+    return func
 
 def setup_launch_factory(func):
     options = [

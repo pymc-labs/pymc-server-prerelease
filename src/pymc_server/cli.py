@@ -3,8 +3,9 @@ import sky
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pymc_server.utils.yaml import merge_yaml
 from pymc_server.launch_cli import launch as cli_launch
-from pymc_server.cli_factory import setup_launch_factory
-from sky.cli import usage_lib
+from pymc_server.cli_factory import setup_launch_factory, setup_status_factory
+from sky.usage import usage_lib
+from sky.cli import status as sky_status
    
 
 # TODO: remove, check pyproject.py for a reference to this function
@@ -12,11 +13,13 @@ from sky.cli import usage_lib
 def cli():
     pass
 
-@click.command
-def status():
-    click.echo(sky.status())
+@setup_status_factory
+@usage_lib.entrypoint
+def status(*args, **kwargs):
+    """ calls the sky status command by passing the click context"""
+    ctx = click.get_current_context()
+    ctx.invoke(sky_status, *args, **kwargs)
 
-cli.add_command(status)
 
 @setup_launch_factory
 @usage_lib.entrypoint
@@ -35,6 +38,7 @@ def launch(*args, **kwargs):
     #for x in range(count):
     #    click.echo(f"Hello {name}!")
 
+cli.add_command(status)
 cli.add_command(launch)
 if __name__ == '__main__':
     cli()

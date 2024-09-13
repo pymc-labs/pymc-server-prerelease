@@ -88,16 +88,13 @@ def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml
 
     Example:
         ```
-        _get_pymc_config_yaml('pymc-marketing')
+        get_pymc_config_yaml('pymc-marketing')
         ```
-
     """
-    # sanity check 
     assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
     base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
     return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
 
-# FIXME: user file positional parameter
 def launch(
     entrypoint: Tuple[str, ...],
     cluster: Optional[str],
@@ -231,7 +228,6 @@ def launch(
                                  f'{resource_port} in different resources. '
                                  'Please specify single port instead.')
 
-    print("service port??")   
     click.secho('Service Spec:', fg='cyan')
     click.echo(task.service)
 

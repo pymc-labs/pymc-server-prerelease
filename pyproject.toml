@@ -1,11 +1,11 @@
 [project]
-name = "PyMC-Server"
+name = "pymc-server"
 version = "0.0.1"
 authors = [
   { name="Chris Krempel", email="chris.krempel@pymc-labs.com" },
   { name="Stephan Mai", email="stephan.mai@pymc-labs.com" },
 ]
-description = "Run PyMC everywhere."
+description = "Run PyMC anywhere."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -13,8 +13,18 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = ["Click"]
+
+[project.scripts]
+pymcs = "pymc_server.cli:cli"
+
 
 [project.urls]
 Homepage = "https://github.com/pymc-dev/PyMC-Server"
 Issues = "https://github.com/pymc-devs/PyMC-Server/issues"
+
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
 

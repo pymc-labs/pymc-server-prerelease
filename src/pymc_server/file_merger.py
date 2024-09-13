@@ -1,6 +1,5 @@
 import yaml
 import json
-import ruamel.yaml
 import hiyapyco
 yaml = ruamel.yaml.YAML(typ='safe')
 out_file = 'output.json'

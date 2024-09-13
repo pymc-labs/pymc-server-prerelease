@@ -3,7 +3,7 @@ import click
 #import colorama
 #import dotenv
 import sky
-from file_merger import mergeYaml
+from pymc_server.file_merger import mergeYaml
 from launch_cli import launch as cli_launch
 @click.group()
 def cli():

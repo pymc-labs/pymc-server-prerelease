@@ -79,29 +79,24 @@ def _check_yaml(yamlFile) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
 
     return result, is_yaml
 
-def launch(yaml=""):
-    config = mergeYaml(devPath='dev.yaml',pymcPath='pymc.yaml')
-    configs = common_utils.read_yaml_all("pymc.yaml")
-    print("------config:")
-    print(config)
-    print("------configs:")
-    print(configs)
-    entrypoint,is_yaml = _check_yaml(config)
+def launch(yaml='dev.yaml'):
+
+    configs,is_yaml = _check_yaml(mergeYaml(devPath=yaml,pymcPath='pymc.yaml'))
     print("entrypoint------")
-    print(entrypoint)
+    print(configs)
     entrypoint_name = 'Task',
     if is_yaml:
         # Treat entrypoint as a yaml.
         click.secho(f'{entrypoint_name} from YAML spec: ',
                     fg='yellow',
                     nl=False)
-        click.secho(entrypoint, bold=True)
+        click.secho(configs, bold=True)
     
     env: List[Tuple[str, str]] = []
     if is_yaml:
-        assert entrypoint is not None
-        usage_lib.messages.usage.update_user_task_yaml(entrypoint[0])
-        dag = load_chain_dag_from_yaml(configs = entrypoint)
+        assert configs is not None
+        usage_lib.messages.usage.update_user_task_yaml(configs[0])
+        dag = load_chain_dag_from_yaml(configs = configs)
      
         
 
@@ -124,7 +119,7 @@ def launch(yaml=""):
        
        
     else:
-        task = sky.Task(name='sky-cmd', run=entrypoint)
+        task = sky.Task(name='sky-cmd', run=configs)
         task.set_resources({sky.Resources()})
         # env update has been done for DAG in load_chain_dag_from_yaml for YAML.
         task.update_envs(env)
@@ -150,7 +145,6 @@ def launch(yaml=""):
         task.name = name
 
 
-    print("sadlkjasdjklasdklasjkldj")
     if isinstance(task, sky.Dag):
         raise click.UsageError(
             _DAG_NOT_SUPPORTED_MESSAGE.format(command=not_supported_cmd))

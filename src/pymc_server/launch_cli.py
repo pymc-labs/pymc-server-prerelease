@@ -98,9 +98,36 @@ def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml
     return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
 
 # FIXME: user file positional parameter
-def launch(entrypoint):
-    print("HOOOOO")
-    print(entrypoint)
+def launch(
+    entrypoint: Tuple[str, ...],
+    cluster: Optional[str],
+    dryrun: bool,
+    detach_setup: bool,
+    detach_run: bool,
+    backend_name: Optional[str],
+    name: Optional[str],
+    workdir: Optional[str],
+    cloud: Optional[str],
+    region: Optional[str],
+    zone: Optional[str],
+    gpus: Optional[str],
+    cpus: Optional[str],
+    memory: Optional[str],
+    instance_type: Optional[str],
+    num_nodes: Optional[int],
+    use_spot: Optional[bool],
+    image_id: Optional[str],
+    env_file: Optional[Dict[str, str]],
+    env: List[Tuple[str, str]],
+    disk_size: Optional[int],
+    disk_tier: Optional[str],
+    ports: Tuple[str],
+    idle_minutes_to_autostop: Optional[int],
+    retry_until_up: bool,
+    yes: bool,
+    no_setup: bool,
+    clone_disk_from: Optional[str],
+):
     # get the base config path for the pymc module
     module_config_path = get_pymc_config_yaml('pymc-marketing')
     configs, is_yaml = _check_yaml(
@@ -109,8 +136,6 @@ def launch(entrypoint):
             pymc_path=module_config_path
         )
     )
-    print("entrypoint------")
-    print(configs)
     entrypoint_name = 'Task',
     if is_yaml:
         # Treat entrypoint as a yaml.
@@ -152,7 +177,6 @@ def launch(entrypoint):
         task.update_envs(env)
 
     # Override.
-    print("sadlkjasdjklasdklasjkldj")
     workdir = None
     job_recovery = None
     num_nodes = None
@@ -175,11 +199,11 @@ def launch(entrypoint):
     if isinstance(task, sky.Dag):
         raise click.UsageError(
             _DAG_NOT_SUPPORTED_MESSAGE.format(command=not_supported_cmd))
-    print("service port??")   
     #if task.service is None:
     #    with ux_utils.print_exception_no_traceback():
     #        raise ValueError('Service section not found in the YAML file. '
     #                         'To fix, add a valid `service` field.')
+    print(task)
     service_port: Optional[int] = None
     for requested_resources in list(task.resources):
         if requested_resources.ports is None or len(

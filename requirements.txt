@@ -3,3 +3,4 @@ nutpie
 lifetimes
 numba
 ray[default]
+skypilot

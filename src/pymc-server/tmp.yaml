@@ -1,0 +1,12 @@
+resources:
+  cloud: azure
+  disk_tier: medium
+  accelerators: V200:2
+  ports: 8000
+workdir: .
+setup: 'echo "Running setup."
+
+  '
+run: 'echo "Hello, SkyPilot!"
+
+  conda env list'

@@ -1,3 +1,9 @@
+# pyMc server - cli deployment tool
+
+## what does it do
+
+The Tool will be used to deploy on skypilot. It aims to simplify the deployment process. 
+In the end, the application needs to merge different .yaml files (pyMc-/user Files) together 
 # Quickstart
 
 ## Installation
@@ -34,14 +40,10 @@ pip3 install .
 
   Follow through the rest of the GCP configuration in your terminal.
 
-  > Tip:
-  > You can see a global status of active VMs by running `pymcs status`
-
-
 
 ### Status of your deployments
 
-Running `pymcs status` all your deployments are checked and displayed in a table.
+To check the status of all your deployments run `pymcs status`. A table is printed to your terminal.
 
 ```bash
 ❯ pymcs status

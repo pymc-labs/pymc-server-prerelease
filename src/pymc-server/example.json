@@ -1,0 +1,1 @@
+{"resources": {"cloud": "aws", "accelerators": "V100:1"}, "workdir": ".", "setup": "echo \"Running setup.\"\n", "run": "echo \"Hello, SkyPilot!\"\nconda env list"}

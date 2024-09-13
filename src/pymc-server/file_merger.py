@@ -1,15 +1,6 @@
 import yaml
 import json
-import ruamel.yaml
 import hiyapyco
-yaml = ruamel.yaml.YAML(typ='safe')
-out_file = 'output.json'
-def getYaml(path):
-    with open(path, 'r') as yaml_in, open(out_file, "w") as json_out:
-       
-        yaml_object = yaml.safe_load(yaml_in) # yaml_object will be a list or a dict
-        print(yaml_object)
-        print(json.dump(yaml_object, json_out))
 
 
 def mergeYaml(devPath,pymcPath='pymc.yaml'):

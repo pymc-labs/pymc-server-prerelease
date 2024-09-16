@@ -5,7 +5,10 @@ from pymc_server.utils.yaml import merge_yaml
 from pymc_server.launch_cli import launch as cli_launch
 from pymc_server.cli_factory import setup_launch_factory, setup_status_factory
 from sky.usage import usage_lib
-from sky.cli import status as sky_status
+from sky.cli import (
+    status as sky_status,
+    launch as sky_launch,
+)
    
 
 # TODO: remove, check pyproject.py for a reference to this function
@@ -34,11 +37,9 @@ def launch(*args, **kwargs):
     """
     cli_launch(*args, **kwargs)
 
-    """Simple program that greets NAME for a total of COUNT times."""
-    #for x in range(count):
-    #    click.echo(f"Hello {name}!")
 
 cli.add_command(status)
 cli.add_command(launch)
+
 if __name__ == '__main__':
     cli()

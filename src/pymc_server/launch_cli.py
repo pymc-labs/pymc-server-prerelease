@@ -13,6 +13,34 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pymc_server.utils.yaml import merge_yaml, getUserYaml
 from sky.utils import common_utils
 
+def getConfigFromYaml(entrypoint: Tuple[str, ...],pymc_yaml:Optional[str]):
+    module_config_path = get_pymc_config_yaml('pymc-marketing')
+    print("Entrypoint:::: " +str(entrypoint))
+    print("pymc server yaml:::: " +str())
+    user_file = entrypoint
+    pymc_file = None
+    userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
+
+    def getPYMC_yamlFromYaml():
+        try :   return str(userYaml[0]['pymc_yaml'])
+        except: return module_config_path
+    pymc_file = pymc_yaml if pymc_yaml is not None else getPYMC_yamlFromYaml()
+
+    configs,is_yaml = _check_and_return_yaml(
+        merge_yaml(
+            user_config_path=user_file,
+            pymc_path=pymc_file
+        )
+    )
+    def remove_key(d, key):
+        r = dict(d)
+        del r[key]
+        return r
+    def setConfig(config):
+        try: return remove_key(config,'pymc_yaml')
+        except: return config
+    if is_yaml: configs = [setConfig(config) for config in configs]
+    return configs, is_yaml
 
 def load_chain_dag_from_yaml(
     configs: List[Dict[str, Any]],
@@ -101,10 +129,7 @@ def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml
     base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
     return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
 
-def remove_key(d, key):
-    r = dict(d)
-    del r[key]
-    return r
+
 
 def launch(
     entrypoint: Tuple[str, ...],
@@ -137,27 +162,8 @@ def launch(
     no_setup: bool,
     clone_disk_from: Optional[str],
 ):
-    # get the base config path for the pymc module
-    module_config_path = get_pymc_config_yaml('pymc-marketing')
 
-    print("Entrypoint:::: " +str(entrypoint))
-    print("pymc server yaml:::: " +str())
-    user_file = entrypoint
-    pymc_file = None
-    userYaml, isValid= _check_and_return_yaml(getUserYaml(entrypoint))
-
-    def getPYMC_yamlFromYaml():
-        try :   return str(userYaml[0]['pymc_yaml'])
-        except: return module_config_path
-    pymc_file = pymc_yaml if pymc_yaml is not None else getPYMC_yamlFromYaml()
-
-    configs, is_yaml = _check_and_return_yaml(
-        merge_yaml(
-            user_config_path=user_file,
-            pymc_path=pymc_file
-        )
-    )
-
+    configs, is_yaml = getConfigFromYaml(entrypoint=entrypoint,pymc_yaml=pymc_yaml)
 
     entrypoint_name = 'Task',
     if is_yaml:
@@ -168,21 +174,14 @@ def launch(
         click.secho(configs, bold=True)
     
     env: List[Tuple[str, str]] = []
-    def setConfig(config):
-        try: return remove_key(config,'pymc_yaml')
-        except: return config
+
     if is_yaml:
         assert configs is not None
-        configs = [setConfig(config) for config in configs]
+
         #remove_key(configs[0],'pymc_yaml')
         usage_lib.messages.usage.update_user_task_yaml(configs[0])
-
         dag = load_chain_dag_from_yaml(configs = configs)
-        print("afterCheck::::")
-        
-
         task = dag.tasks[0]
-       
 
         if len(dag.tasks) > 1:
             # When the dag has more than 1 task. It is unclear how to
@@ -215,7 +214,7 @@ def launch(
 
     # job launch specific.
     #if job_recovery is not None:
-        #override_params['job_recovery'] = job_recovery
+    #    override_params['job_recovery'] = job_recovery
 
 
 

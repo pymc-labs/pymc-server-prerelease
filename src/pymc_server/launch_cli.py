@@ -13,18 +13,16 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pymc_server.utils.yaml import merge_yaml, getUserYaml
 from sky.utils import common_utils
 
-def getConfigFromYaml(entrypoint: Tuple[str, ...],pymc_yaml:Optional[str]):
+def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_yaml:Optional[str]):
     module_config_path = get_pymc_config_yaml('pymc-marketing')
-    print("Entrypoint:::: " +str(entrypoint))
-    print("pymc server yaml:::: " +str())
     user_file = entrypoint
     pymc_file = None
     userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
 
-    def getPYMC_yamlFromYaml():
+    def get_pymc_yaml_from_yaml():
         try :   return str(userYaml[0]['pymc_yaml'])
         except: return module_config_path
-    pymc_file = pymc_yaml if pymc_yaml is not None else getPYMC_yamlFromYaml()
+    pymc_file = pymc_yaml if pymc_yaml is not None else get_pymc_yaml_from_yaml()
 
     configs,is_yaml = _check_and_return_yaml(
         merge_yaml(
@@ -36,10 +34,10 @@ def getConfigFromYaml(entrypoint: Tuple[str, ...],pymc_yaml:Optional[str]):
         r = dict(d)
         del r[key]
         return r
-    def setConfig(config):
+    def set_config(config):
         try: return remove_key(config,'pymc_yaml')
         except: return config
-    if is_yaml: configs = [setConfig(config) for config in configs]
+    if is_yaml: configs = [set_config(config) for config in configs]
     return configs, is_yaml
 
 def load_chain_dag_from_yaml(
@@ -163,7 +161,7 @@ def launch(
     clone_disk_from: Optional[str],
 ):
 
-    configs, is_yaml = getConfigFromYaml(entrypoint=entrypoint,pymc_yaml=pymc_yaml)
+    configs, is_yaml = get_config_from_yaml(entrypoint=entrypoint,pymc_yaml=pymc_yaml)
 
     entrypoint_name = 'Task',
     if is_yaml:

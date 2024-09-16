@@ -1,9 +1,9 @@
 resources:
   # Optional; if left out, automatically pick the cheapest cloud.
   cloud: aws
-  disk_tier: medium
+  #disk_tier: medium
   # 1x NVIDIA V100 GPU
-  accelerators: V100:1
+  #accelerators: V100:1
   ports: 9000
 
 # Working directory (optional) containing the project codebase.
@@ -19,4 +19,4 @@ setup: |
 # Invoked under the workdir (i.e., can use its files).
 run: |
   echo "Hello, SkyPilot!"
-  conda env list
+  #conda env list

@@ -38,7 +38,9 @@ def launch(*args, **kwargs):
     In both cases, the commands are run under the task's workdir (if specified)
     and they undergo job queue scheduling.
     """
-    cli_launch(*args, **kwargs)
+    #  cli_launch(*args, **kwargs)
+    ctx = click.get_current_context()
+    ctx.invoke(cli_launch, *args, **kwargs)
 
 @setup_status_factory
 @usage_lib.entrypoint

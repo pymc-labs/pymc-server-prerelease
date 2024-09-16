@@ -21,3 +21,7 @@ def merge_yaml(user_config_path, pymc_path):
 def getUserYaml(path):
     merged_yaml = hiyapyco.load(path, path, method=hiyapyco.METHOD_MERGE)
     return hiyapyco.dump(merged_yaml)
+
+def get_pymc_module_from_yaml():
+    try :   return str(userYaml[0]['pymc_module'])
+    except: return None

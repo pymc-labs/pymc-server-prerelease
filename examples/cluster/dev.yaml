@@ -1,0 +1,15 @@
+num_nodes: 1
+resources:
+  # Optional; if left out, automatically pick the cheapest cloud.
+  cloud: gcp
+  cpus: 1
+  # 1x NVIDIA V100 GPU
+  #accelerators: V200:2
+  ports : 80
+
+workdir: ./src/pymc_server/workDir_test
+pymc_module: pymc-marketing
+run: |
+  echo "Hello, SkyPilot!"
+  uname -a
+  python test.py

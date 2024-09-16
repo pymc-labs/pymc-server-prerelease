@@ -10,10 +10,10 @@ from sky import serve as serve_lib
 from sky.usage import usage_lib
 from sky.utils import dag_utils,ux_utils
 from typing import Any, Dict, List, Optional, Tuple, Union
-from pymc_server.utils.yaml import merge_yaml, getUserYaml
+from pymc_server.utils.yaml import merge_yaml, getUserYaml, get_pymc_module_from_yaml
 from sky.utils import common_utils
 import os.path
-def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml"):
+def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml", supported_modules=['pymc-marketing']):
     """
     Get's the base config for the pymc module
 
@@ -29,11 +29,22 @@ def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml
 
     if file_exists == False:
         list = ', '.join(os.listdir(f'{base_path}/{import_from}'))
-        print(str(list))
 
-    assert file_exists == True , f'Not Implemented: the only supported module are {list}'
+    # check that we have the config and support the module
+    is_valid_module = file_exists and pymc_module in supported_modules
+    assert is_valid_module , f'Not Implemented: the only supported module are {supported_modules} but we may have config for additional modules: {list}'
 
     return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
+
+def remove_key(d, key):
+    r = dict(d)
+    del r[key]
+    return r
+
+def set_config(config):
+    try: return remove_key(config,'pymc_module')
+    except: return config
+
 
 def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_module:Optional[str]):
 
@@ -41,9 +52,6 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_module:Optional[str]):
     pymc_file = None
     userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
 
-    def get_pymc_module_from_yaml():
-        try :   return str(userYaml[0]['pymc_module'])
-        except: return None
 
     pymc_file = pymc_module if pymc_module is not None else get_pymc_module_from_yaml()
 
@@ -55,13 +63,10 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_module:Optional[str]):
             pymc_path=module_config_path
         )
     )
-    def remove_key(d, key):
-        r = dict(d)
-        del r[key]
-        return r
-    def set_config(config):
-        try: return remove_key(config,'pymc_module')
-        except: return config
+
+    print('#######')
+    print(configs)
+    print('#######')
     if is_yaml: configs = [set_config(config) for config in configs]
     return configs, is_yaml
 
@@ -246,6 +251,7 @@ def launch(
     #print(task)
     service_port: Optional[int] = None
     for requested_resources in list(task.resources):
+        """
         if requested_resources.ports is None or len(
                 requested_resources.ports) != 1:
             with ux_utils.print_exception_no_traceback():
@@ -271,6 +277,7 @@ def launch(
                                  f'{resource_port} in different resources. '
                                  'Please specify single port instead.')
 
+        """
     click.secho('Service Spec:', fg='cyan')
     click.echo(task.service)
 

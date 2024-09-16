@@ -6,4 +6,3 @@ resources:
   ports : 8000
 
 workdir: ./src/pymc_server/workDir_test
-pymc_yaml: ./src/pymc_server/pymc.yaml

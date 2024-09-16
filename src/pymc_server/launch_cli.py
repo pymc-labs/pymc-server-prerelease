@@ -13,21 +13,38 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from pymc_server.utils.yaml import merge_yaml, getUserYaml
 from sky.utils import common_utils
 
-def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_yaml:Optional[str]):
-    module_config_path = get_pymc_config_yaml('pymc-marketing')
+def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml"):
+    """
+    Get's the base config for the pymc module
+
+    Example:
+        ```
+        get_pymc_config_yaml('pymc-marketing')
+        ```
+    """
+    assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
+    base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
+    return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
+
+def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_module:Optional[str]):
+
     user_file = entrypoint
     pymc_file = None
     userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
 
-    def get_pymc_yaml_from_yaml():
-        try :   return str(userYaml[0]['pymc_yaml'])
-        except: return module_config_path
-    pymc_file = pymc_yaml if pymc_yaml is not None else get_pymc_yaml_from_yaml()
+    def get_pymc_module_from_yaml():
+        try :   return str(userYaml[0]['pymc_module'])
+        except: return None
 
+    print("MODULE:::: "+str(pymc_module))
+    pymc_file = pymc_module if pymc_module is not None else get_pymc_module_from_yaml()
+
+    #module_config_path = get_pymc_config_yaml(pymc_module)
+    module_config_path = get_pymc_config_yaml(pymc_file) if pymc_file is not None else get_pymc_config_yaml('pymc-marketing')
     configs,is_yaml = _check_and_return_yaml(
         merge_yaml(
             user_config_path=user_file,
-            pymc_path=pymc_file
+            pymc_path=module_config_path
         )
     )
     def remove_key(d, key):
@@ -35,7 +52,7 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_yaml:Optional[str]):
         del r[key]
         return r
     def set_config(config):
-        try: return remove_key(config,'pymc_yaml')
+        try: return remove_key(config,'pymc_module')
         except: return config
     if is_yaml: configs = [set_config(config) for config in configs]
     return configs, is_yaml
@@ -114,24 +131,13 @@ def _check_and_return_yaml(yaml_file) :#-> Tuple[bool, Optional[Dict[str, Any]]]
 
     return result, is_yaml
 
-def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml"):
-    """
-    Get's the base config for the pymc module
 
-    Example:
-        ```
-        get_pymc_config_yaml('pymc-marketing')
-        ```
-    """
-    assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
-    base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
-    return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
 
 
 
 def launch(
     entrypoint: Tuple[str, ...],
-    pymc_yaml:Optional[str],
+    pymc_module:Optional[str],
     cluster: Optional[str],
     dryrun: bool,
     detach_setup: bool,
@@ -161,7 +167,7 @@ def launch(
     clone_disk_from: Optional[str],
 ):
 
-    configs, is_yaml = get_config_from_yaml(entrypoint=entrypoint,pymc_yaml=pymc_yaml)
+    configs, is_yaml = get_config_from_yaml(entrypoint,pymc_module)
 
     entrypoint_name = 'Task',
     if is_yaml:

@@ -10,9 +10,60 @@ from sky import serve as serve_lib
 from sky.usage import usage_lib
 from sky.utils import dag_utils,ux_utils
 from typing import Any, Dict, List, Optional, Tuple, Union
-from pymc_server.utils.yaml import merge_yaml
+from pymc_server.utils.yaml import merge_yaml, getUserYaml
 from sky.utils import common_utils
+import os.path
+def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml"):
+    """
+    Get's the base config for the pymc module
 
+    Example:
+        ```
+        get_pymc_config_yaml('pymc-marketing')
+        ```
+    """
+    #assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
+    base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
+    file_exists = os.path.isfile(f'{base_path}/{import_from}/{pymc_module}/{file_name}')
+    list = ""
+
+    if file_exists == False:
+        list = ', '.join(os.listdir(f'{base_path}/{import_from}'))
+        print(str(list))
+
+    assert file_exists == True , f'Not Implemented: the only supported module are {list}'
+
+    return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
+
+def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_module:Optional[str]):
+
+    user_file = entrypoint
+    pymc_file = None
+    userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
+
+    def get_pymc_module_from_yaml():
+        try :   return str(userYaml[0]['pymc_module'])
+        except: return None
+
+    pymc_file = pymc_module if pymc_module is not None else get_pymc_module_from_yaml()
+
+    #module_config_path = get_pymc_config_yaml(pymc_module)
+    module_config_path = get_pymc_config_yaml(pymc_file) if pymc_file is not None else get_pymc_config_yaml('pymc-marketing')
+    configs,is_yaml = _check_and_return_yaml(
+        merge_yaml(
+            user_config_path=user_file,
+            pymc_path=module_config_path
+        )
+    )
+    def remove_key(d, key):
+        r = dict(d)
+        del r[key]
+        return r
+    def set_config(config):
+        try: return remove_key(config,'pymc_module')
+        except: return config
+    if is_yaml: configs = [set_config(config) for config in configs]
+    return configs, is_yaml
 
 def load_chain_dag_from_yaml(
     configs: List[Dict[str, Any]],
@@ -41,20 +92,26 @@ def load_chain_dag_from_yaml(
     if len(configs) == 0:
         # YAML has only `name: xxx`. Still instantiate a task.
         configs = [{'name': dag_name}]
-
     current_task = None
+
     with dag_lib.Dag() as dag:
         for task_config in configs:
+            print("DAG afterCheck::::")
             if task_config is None:
                 continue
+            print("DAG afterCheck::::")
             task = task_lib.Task.from_yaml_config(task_config, env_overrides)
+            print("DAG afterCheck::::"+str(task))
             if current_task is not None:
+                print("DAG afterCheck::::")
                 current_task >> task  # pylint: disable=pointless-statement
             current_task = task
     dag.name = dag_name
+    print("DAG afterCheck::::")
+
     return dag
 
-def _check_yaml(yaml_file) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
+def _check_and_return_yaml(yaml_file) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
     """Checks if entrypoint is a readable YAML file.
 
     Args:
@@ -82,21 +139,13 @@ def _check_yaml(yaml_file) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
 
     return result, is_yaml
 
-def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml"):
-    """
-    Get's the base config for the pymc module
 
-    Example:
-        ```
-        get_pymc_config_yaml('pymc-marketing')
-        ```
-    """
-    assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
-    base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
-    return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
+
+
 
 def launch(
     entrypoint: Tuple[str, ...],
+    pymc_module:Optional[str],
     cluster: Optional[str],
     dryrun: bool,
     detach_setup: bool,
@@ -125,14 +174,9 @@ def launch(
     no_setup: bool,
     clone_disk_from: Optional[str],
 ):
-    # get the base config path for the pymc module
-    module_config_path = get_pymc_config_yaml('pymc-marketing')
-    configs, is_yaml = _check_yaml(
-        merge_yaml(
-            user_config_path=entrypoint,
-            pymc_path=module_config_path
-        )
-    )
+
+    configs, is_yaml = get_config_from_yaml(entrypoint,pymc_module)
+
     entrypoint_name = 'Task',
     if is_yaml:
         # Treat entrypoint as a yaml.
@@ -142,16 +186,15 @@ def launch(
         click.secho(configs, bold=True)
     
     env: List[Tuple[str, str]] = []
+
     if is_yaml:
         assert configs is not None
+
+        #remove_key(configs[0],'pymc_yaml')
         usage_lib.messages.usage.update_user_task_yaml(configs[0])
         dag = load_chain_dag_from_yaml(configs = configs)
-     
-        
-
         task = dag.tasks[0]
-       
-        '''
+
         if len(dag.tasks) > 1:
             # When the dag has more than 1 task. It is unclear how to
             # override the params for the dag. So we just ignore the
@@ -162,28 +205,28 @@ def launch(
                     'since the yaml file contains multiple tasks.',
                     fg='yellow')
             return dag
-        '''
+
         assert len(dag.tasks) == 1, (
             f'If you see this, please file an issue; tasks: {dag.tasks}')
        
        
     else:
+
         task = sky.Task(name='sky-cmd', run=configs)
         task.set_resources({sky.Resources()})
         # env update has been done for DAG in load_chain_dag_from_yaml for YAML.
         task.update_envs(env)
-
     # Override.
-    workdir = None
-    job_recovery = None
-    num_nodes = None
-    name = None
+    #workdir = None
+    #job_recovery = None
+    #num_nodes = None
+    #name = None
     if workdir is not None:
         task.workdir = workdir
 
     # job launch specific.
     #if job_recovery is not None:
-        #override_params['job_recovery'] = job_recovery
+    #    override_params['job_recovery'] = job_recovery
 
 
 
@@ -200,7 +243,7 @@ def launch(
     #    with ux_utils.print_exception_no_traceback():
     #        raise ValueError('Service section not found in the YAML file. '
     #                         'To fix, add a valid `service` field.')
-    print(task)
+    #print(task)
     service_port: Optional[int] = None
     for requested_resources in list(task.resources):
         if requested_resources.ports is None or len(

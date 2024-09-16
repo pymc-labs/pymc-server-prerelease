@@ -12,7 +12,7 @@ from sky.utils import dag_utils,ux_utils
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pymc_server.utils.yaml import merge_yaml, getUserYaml
 from sky.utils import common_utils
-
+import os.path
 def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml"):
     """
     Get's the base config for the pymc module
@@ -24,6 +24,15 @@ def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml
     """
     #assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
     base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
+    file_exists = os.path.isfile(f'{base_path}/{import_from}/{pymc_module}/{file_name}')
+    list = ""
+
+    if file_exists == False:
+        list = ', '.join(os.listdir(f'{base_path}/{import_from}'))
+        print(str(list))
+
+    assert file_exists == True , f'Not Implemented: the only supported module are {list}'
+
     return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
 
 def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_module:Optional[str]):

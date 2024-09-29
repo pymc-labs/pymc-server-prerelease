@@ -5,3 +5,4 @@ numba
 ray[default]
 skypilot
 skypilot[gcp]
+hiyapyco

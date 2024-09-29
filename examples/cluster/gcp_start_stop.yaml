@@ -1,0 +1,15 @@
+# start and stop GCP instances
+name: gcp-start-stop
+
+resources:
+  cloud: gcp
+  cpus: 1+
+
+num_nodes: 1
+
+# The setup command.  Will be run under the working directory.
+setup: 'echo "hi"'
+workdir: ./src/pymc_server/workDir_test
+
+# The command to run.  Will be run under the working directory.
+run: 'python test.py'

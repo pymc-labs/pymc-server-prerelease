@@ -1,16 +1,75 @@
+import os
 import yaml
 import click
-from sky.usage import usage_lib
-from sky import Task
 import sky
-from sky import serve as serve_lib
-from sky.utils import dag_utils,ux_utils
-from typing import Any, Dict, List, Optional, Tuple, Union
+import pymc_server
+from sky import Task
 from sky import dag as dag_lib
 from sky import task as task_lib
-from file_merger import mergeYaml
-
+from sky import serve as serve_lib
+from sky.usage import usage_lib
+from sky.utils import dag_utils,ux_utils
+from typing import Any, Dict, List, Optional, Tuple, Union
+from pymc_server.utils.yaml import merge_yaml, getUserYaml, get_pymc_module_from_yaml
 from sky.utils import common_utils
+import os.path
+def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml", supported_modules=['pymc-marketing']):
+    """
+    Get's the base config for the pymc module
+
+    Example:
+        ```
+        get_pymc_config_yaml('pymc-marketing')
+        ```
+    """
+    #assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
+    base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
+    file_exists = os.path.isfile(f'{base_path}/{import_from}/{pymc_module}/{file_name}')
+    list = ""
+
+    if file_exists == False:
+        list = ', '.join(os.listdir(f'{base_path}/{import_from}'))
+
+    # check that we have the config and support the module
+    is_valid_module = file_exists and pymc_module in supported_modules
+    assert is_valid_module , f'Not Implemented: the only supported module are {supported_modules} but we may have config for additional modules: {list}'
+
+    return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
+
+def remove_key(d, key):
+    r = dict(d)
+    del r[key]
+    return r
+
+def set_config(config):
+    try: return remove_key(config,'pymc_module')
+    except: return config
+
+
+def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_module:Optional[str]):
+
+    user_file = entrypoint
+    pymc_file = None
+    userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
+
+
+    pymc_file = pymc_module if pymc_module is not None else get_pymc_module_from_yaml()
+
+    #module_config_path = get_pymc_config_yaml(pymc_module)
+    module_config_path = get_pymc_config_yaml(pymc_file) if pymc_file is not None else get_pymc_config_yaml('pymc-marketing')
+    configs,is_yaml = _check_and_return_yaml(
+        merge_yaml(
+            user_config_path=user_file,
+            pymc_path=module_config_path
+        )
+    )
+
+    print('#######')
+    print(configs)
+    print('#######')
+    if is_yaml: configs = [set_config(config) for config in configs]
+    return configs, is_yaml
+
 def load_chain_dag_from_yaml(
     configs: List[Dict[str, Any]],
     env_overrides: Optional[List[Tuple[str, str]]] = None,
@@ -38,20 +97,26 @@ def load_chain_dag_from_yaml(
     if len(configs) == 0:
         # YAML has only `name: xxx`. Still instantiate a task.
         configs = [{'name': dag_name}]
-
     current_task = None
+
     with dag_lib.Dag() as dag:
         for task_config in configs:
+            print("DAG afterCheck::::")
             if task_config is None:
                 continue
+            print("DAG afterCheck::::")
             task = task_lib.Task.from_yaml_config(task_config, env_overrides)
+            print("DAG afterCheck::::"+str(task))
             if current_task is not None:
+                print("DAG afterCheck::::")
                 current_task >> task  # pylint: disable=pointless-statement
             current_task = task
     dag.name = dag_name
+    print("DAG afterCheck::::")
+
     return dag
 
-def _check_yaml(yamlFile) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
+def _check_and_return_yaml(yaml_file) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
     """Checks if entrypoint is a readable YAML file.
 
     Args:
@@ -63,7 +128,7 @@ def _check_yaml(yamlFile) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
     #with open(entrypoint, 'r', encoding='utf-8') as f: # change that - open 
     try:
         is_yaml = True
-        config = list(yaml.safe_load_all(yamlFile))
+        config = list(yaml.safe_load_all(yaml_file))
         if config:
             # FIXME(zongheng): in a chain DAG YAML it only returns the
             # first section. OK for downstream but is weird.
@@ -79,35 +144,62 @@ def _check_yaml(yamlFile) :#-> Tuple[bool, Optional[Dict[str, Any]]]:
 
     return result, is_yaml
 
-def launch(yaml=""):
-    config = mergeYaml(devPath='dev.yaml',pymcPath='pymc.yaml')
-    configs = common_utils.read_yaml_all("pymc.yaml")
-    print("------config:")
-    print(config)
-    print("------configs:")
-    print(configs)
-    entrypoint,is_yaml = _check_yaml(config)
-    print("entrypoint------")
-    print(entrypoint)
+
+
+
+
+def launch(
+    entrypoint: Tuple[str, ...],
+    pymc_module:Optional[str],
+    cluster: Optional[str],
+    dryrun: bool,
+    detach_setup: bool,
+    detach_run: bool,
+    backend_name: Optional[str],
+    name: Optional[str],
+    workdir: Optional[str],
+    cloud: Optional[str],
+    region: Optional[str],
+    zone: Optional[str],
+    gpus: Optional[str],
+    cpus: Optional[str],
+    memory: Optional[str],
+    instance_type: Optional[str],
+    num_nodes: Optional[int],
+    use_spot: Optional[bool],
+    image_id: Optional[str],
+    env_file: Optional[Dict[str, str]],
+    env: List[Tuple[str, str]],
+    disk_size: Optional[int],
+    disk_tier: Optional[str],
+    ports: Tuple[str],
+    idle_minutes_to_autostop: Optional[int],
+    retry_until_up: bool,
+    yes: bool,
+    no_setup: bool,
+    clone_disk_from: Optional[str],
+):
+
+    configs, is_yaml = get_config_from_yaml(entrypoint,pymc_module)
+
     entrypoint_name = 'Task',
     if is_yaml:
         # Treat entrypoint as a yaml.
         click.secho(f'{entrypoint_name} from YAML spec: ',
                     fg='yellow',
                     nl=False)
-        click.secho(entrypoint, bold=True)
+        click.secho(configs, bold=True)
     
     env: List[Tuple[str, str]] = []
-    if is_yaml:
-        assert entrypoint is not None
-        usage_lib.messages.usage.update_user_task_yaml(entrypoint[0])
-        dag = load_chain_dag_from_yaml(configs = entrypoint)
-     
-        
 
+    if is_yaml:
+        assert configs is not None
+
+        #remove_key(configs[0],'pymc_yaml')
+        usage_lib.messages.usage.update_user_task_yaml(configs[0])
+        dag = load_chain_dag_from_yaml(configs = configs)
         task = dag.tasks[0]
-       
-        '''
+
         if len(dag.tasks) > 1:
             # When the dag has more than 1 task. It is unclear how to
             # override the params for the dag. So we just ignore the
@@ -118,29 +210,28 @@ def launch(yaml=""):
                     'since the yaml file contains multiple tasks.',
                     fg='yellow')
             return dag
-        '''
+
         assert len(dag.tasks) == 1, (
             f'If you see this, please file an issue; tasks: {dag.tasks}')
        
        
     else:
-        task = sky.Task(name='sky-cmd', run=entrypoint)
+
+        task = sky.Task(name='sky-cmd', run=configs)
         task.set_resources({sky.Resources()})
         # env update has been done for DAG in load_chain_dag_from_yaml for YAML.
         task.update_envs(env)
-
     # Override.
-    print("sadlkjasdjklasdklasjkldj")
-    workdir = None
-    job_recovery = None
-    num_nodes = None
-    name = None
+    #workdir = None
+    #job_recovery = None
+    #num_nodes = None
+    #name = None
     if workdir is not None:
         task.workdir = workdir
 
     # job launch specific.
     #if job_recovery is not None:
-        #override_params['job_recovery'] = job_recovery
+    #    override_params['job_recovery'] = job_recovery
 
 
 
@@ -150,17 +241,17 @@ def launch(yaml=""):
         task.name = name
 
 
-    print("sadlkjasdjklasdklasjkldj")
     if isinstance(task, sky.Dag):
         raise click.UsageError(
             _DAG_NOT_SUPPORTED_MESSAGE.format(command=not_supported_cmd))
-    print("service port??")   
     #if task.service is None:
     #    with ux_utils.print_exception_no_traceback():
     #        raise ValueError('Service section not found in the YAML file. '
     #                         'To fix, add a valid `service` field.')
+    #print(task)
     service_port: Optional[int] = None
     for requested_resources in list(task.resources):
+        """
         if requested_resources.ports is None or len(
                 requested_resources.ports) != 1:
             with ux_utils.print_exception_no_traceback():
@@ -186,7 +277,7 @@ def launch(yaml=""):
                                  f'{resource_port} in different resources. '
                                  'Please specify single port instead.')
 
-    print("service port??")   
+        """
     click.secho('Service Spec:', fg='cyan')
     click.echo(task.service)
 

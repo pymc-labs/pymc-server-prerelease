@@ -40,6 +40,29 @@ pip3 install .
 
   Follow through the rest of the GCP configuration in your terminal.
 
+4. In Order to let PyMC-Server manage cloud resources for you, you need to grant your Google IAM account the permissions to execute all actions neccessary.
+
+  Go to [Google IAM Console](https://console.cloud.google.com/iam-admin/iam) to access and edit your IAM permissions. 
+
+  Next, create a new role and name it e.g. `pymcs-server-role`.
+  
+  >Note: we will be granting overly permissive rules for convenience of your setup not taking too long.
+  >For production usage it is strictly neccessary that you review the permissions given. Please refer to [GCP: Minimal Permissions](https://skypilot.readthedocs.io/en/latest/cloud-setup/cloud-permissions/gcp.html#minimal-permissions) for more information on how to setup secure and fine grained permissions.
+
+  Add the following permissions to your newly created role. At the time of writing this document Google offers a search bar where each permission needs to be entered. The table below the search bar will display the roles under this name, and you can select them all together with the first checkbox in the table (header).
+
+```
+roles/browser
+roles/compute.admin
+roles/iam.serviceAccountAdmin
+roles/iam.serviceAccountUser
+roles/serviceusage.serviceUsageConsumer
+roles/storage.admin
+roles/iam.securityAdmin
+```
+
+
+  >Note: If you use PyMC-Server as part of an organization, your GCP admin might have setup a role already (e.g. `pymc-server-role `) and you can easily attach your user to it.
 
 ### Status of your deployments
 

@@ -17,6 +17,10 @@ from pymc_server.utils.yaml import merge_yaml, getUserYaml, get_pymc_module_from
 from sky.utils import common_utils
 import os.path
 from pymc_server.utils.names import generate_cluster_name
+from sky.utils import controller_utils
+from sky import backends
+from sky.cli import _launch_with_confirm
+
 
 def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml", supported_modules=['pymc-marketing']):
     """
@@ -441,7 +445,114 @@ def cli_launch_(
                         name,
                         detach_run=detach_run,
                         retry_until_up=retry_until_up)
+@click.option(
+    '--down',
+    default=False,
+    is_flag=True,
+    required=False,
+    help=
+    ('Autodown the cluster: tear down the cluster after all jobs finish '
+     '(successfully or abnormally). If --idle-minutes-to-autostop is also set, '
+     'the cluster will be torn down after the specified idle time. '
+     'Note that if errors occur during provisioning/data syncing/setting up, '
+     'the cluster will not be torn down for debugging purposes.'),
+)
+def launch_2(
+    entrypoint: Tuple[str, ...],
+    pymc_module:Optional[str],
+    cluster: Optional[str],
+    dryrun: bool,
+    detach_setup: bool,
+    detach_run: bool,
+    backend_name: Optional[str],
+    name: Optional[str],
+    workdir: Optional[str],
+    cloud: Optional[str],
+    region: Optional[str],
+    zone: Optional[str],
+    gpus: Optional[str],
+    cpus: Optional[str],
+    memory: Optional[str],
+    instance_type: Optional[str],
+    num_nodes: Optional[int],
+    use_spot: Optional[bool],
+    image_id: Optional[str],
+    env_file: Optional[Dict[str, str]],
+    env: List[Tuple[str, str]],
+    disk_size: Optional[int],
+    disk_tier: Optional[str],
+    ports: Tuple[str],
+    idle_minutes_to_autostop: Optional[int],
+    retry_until_up: bool,
+    yes: bool,
+    no_setup: bool,
+    clone_disk_from: Optional[str],
+    # job launch specific
+    job_recovery: Optional[str] = None,
+    down: bool = False
+):
 
+    # NOTE(dev): Keep the docstring consistent between the Python API and CLI.
+    env = _merge_env_vars(env_file, env)
+    controller_utils.check_cluster_name_not_controller(
+        cluster, operation_str='Launching tasks on it')
+    if backend_name is None:
+        backend_name = backends.CloudVmRayBackend.NAME
+
+    task_or_dag = _make_task_or_dag_from_entrypoint_with_overrides(
+        entrypoint=entrypoint,
+        pymc_module=pymc_module,
+        name=name,
+        workdir=workdir,
+        cloud=cloud,
+        region=region,
+        zone=zone,
+        gpus=gpus,
+        cpus=cpus,
+        memory=memory,
+        instance_type=instance_type,
+        num_nodes=num_nodes,
+        use_spot=use_spot,
+        image_id=image_id,
+        env=env,
+        disk_size=disk_size,
+        disk_tier=disk_tier,
+        ports=ports,
+    )
+    if isinstance(task_or_dag, sky.Dag):
+        raise click.UsageError(
+            _DAG_NOT_SUPPORTED_MESSAGE.format(command='sky launch'))
+    task = task_or_dag
+
+    backend: backends.Backend
+    if backend_name == backends.LocalDockerBackend.NAME:
+        backend = backends.LocalDockerBackend()
+    elif backend_name == backends.CloudVmRayBackend.NAME:
+        backend = backends.CloudVmRayBackend()
+    else:
+        with ux_utils.print_exception_no_traceback():
+            raise ValueError(f'{backend_name} backend is not supported.')
+
+    if task.service is not None:
+        logger.info(
+            f'{colorama.Fore.YELLOW}Service section will be ignored when using '
+            f'`sky launch`. {colorama.Style.RESET_ALL}\n{colorama.Fore.YELLOW}'
+            'To spin up a service, use SkyServe CLI: '
+            f'{colorama.Style.RESET_ALL}{colorama.Style.BRIGHT}sky serve up'
+            f'{colorama.Style.RESET_ALL}')
+
+    _launch_with_confirm(task,
+                         backend,
+                         cluster=generate_cluster_name(),
+                         dryrun=dryrun,
+                         detach_setup=detach_setup,
+                         detach_run=detach_run,
+                         no_confirm=yes,
+                         idle_minutes_to_autostop=idle_minutes_to_autostop,
+                         down=down,
+                         retry_until_up=retry_until_up,
+                         no_setup=no_setup,
+                         clone_disk_from=clone_disk_from)
 
 
 

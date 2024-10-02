@@ -3,9 +3,10 @@ import sky
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pymc_server.utils.yaml import merge_yaml
 from pymc_server.launch_cli import launch as cli_launch,cli_launch_
+from pymc_server.launch_cli import launch_2
 from pymc_server.cli_factory import setup_launch_factory, setup_status_factory
 from sky.usage import usage_lib
-from pymc_server.utils.cli_ex import launch as ex_launch
+from pymc_server.utils.cli_ex import jobs_launch as ex_launch
 
 
 from sky.cli import (
@@ -13,7 +14,7 @@ from sky.cli import (
     launch as sky_launch,
     check as sky_check
 )
-   
+
 
 # TODO: remove, check pyproject.py for a reference to this function
 @click.group()
@@ -41,8 +42,7 @@ def launch(*args, **kwargs):
     """
     #  cli_launch(*args, **kwargs)
     ctx = click.get_current_context()
-    ctx.invoke(cli_launch_, *args, **kwargs)
-
+    ctx.invoke(launch_2, *args, **kwargs)
     #ctx.invoke(sky_launch, *args, **kwargs)
 
 @setup_status_factory

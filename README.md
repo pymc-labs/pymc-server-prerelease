@@ -8,6 +8,13 @@ In the end, the application needs to merge different .yaml files (pyMc-/user Fil
 
 ## Installation
 
+Start a new virtual environment with micromamba (conda/mamba/or similar).
+
+```bash
+micromamba create -n pymc-server -c conda-forge python=3.12
+micromamba activate pymc-server
+```
+
 Install this library from PiPy `pip3 install pymc-server`
 
 If you want to install this library from source:
@@ -15,8 +22,7 @@ If you want to install this library from source:
 git clone https://github.com/pymc-dev/PyMC-Server
 cd PyMC-Server
 
-pip3 install . 
-# run 'pip3 install -e .' if you want to be able to edit the code
+pip3 install . # run `pip3 install -e .` if you want to be able to edit the code
 ```
 
 ### Setting up a cloud: Google Cloud
@@ -24,7 +30,8 @@ pip3 install .
 1. Run `pymcs check` to see if you already have credentials setup. If you see a green checkmark for GCP (Google Cloud Platform), skip to the next section
 2. Install the google cloud SDK and authenticate.
   ```bash
-  conda install -c conda-forge google-cloud-sdk
+  # inside your activated environment
+  micromamba install -c conda-forge google-cloud-sdk
   gcloud init
 
   # Run this if you don't have a credentials file.

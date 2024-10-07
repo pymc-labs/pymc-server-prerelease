@@ -53,7 +53,7 @@ pip3 install . # run `pip3 install -e .` if you want to be able to edit the code
 
   Next, create a new role and name it e.g. `pymcs-server-role`.
   
-  >Note: we will be granting overly permissive rules for convenience of your setup not taking too long.
+  >Note: we will be granting overly permissive rules for convenience of your setup.
   >For production usage it is strictly neccessary that you review the permissions given. Please refer to [GCP: Minimal Permissions](https://skypilot.readthedocs.io/en/latest/cloud-setup/cloud-permissions/gcp.html#minimal-permissions) for more information on how to setup secure and fine grained permissions.
 
   Add the following permissions to your newly created role. At the time of writing this document Google offers a search bar where each permission needs to be entered. The table below the search bar will display the roles under this name, and you can select them all together with the first checkbox in the table (header).

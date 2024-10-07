@@ -81,9 +81,11 @@ def setup_launch_factory(func):
                         **_get_shell_complete_args(_complete_file_name)),
         click.option('--module-name',
                       '-m',
+                      #default='pymc-marketing',
                       required=False,
                       type=str,
-                      help=('Define the PyMC module / project you need tu use')),
+                      help=('Define the PyMC module / project you need tu use. '
+                            'pymc-marketing is default.')),
         click.option('--base-config-folder',
                      '-b',
                      required=False,

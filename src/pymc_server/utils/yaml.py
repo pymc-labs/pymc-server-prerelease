@@ -150,7 +150,8 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],b
 
     user_file = entrypoint
     base_file = None
-    if entrypoint is not ():
+    module_config_path =None
+    if entrypoint != ():
         exists(entrypoint[0])
     userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
 
@@ -160,12 +161,14 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],b
         #customBaseYaml, isValid_ = _check_and_return_yaml(getUserYaml(base_file))
         module_config_path = base_file
 
+
     if module_config_path is None:
-        base_file = get_pymc_config_yaml(module_name if module_name is not None else get_module_name_from_yaml())
+        current_module = module_name if module_name is not None else get_module_name_from_yaml()
+        base_file = get_pymc_config_yaml(current_module if current_module is not None else "pymc-marketing")
         exists(base_file)
         module_config_path = base_file
 
-
+    # print(f'module_config_path:: {module_config_path}')
     configs,is_yaml = _check_and_return_yaml(
         merge_yaml(
             user_config_path=user_file,

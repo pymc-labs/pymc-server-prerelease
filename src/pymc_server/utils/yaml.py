@@ -136,17 +136,24 @@ def set_config(config):
     except: return config
 
 
-def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str]):
+def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],base_config_path:Optional[str]):
 
     user_file = entrypoint
-    pymc_file = None
+    base_file = None
+
     userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
 
+    if base_config_path is not None:
+        base_file =  f'{base_config_path}/{module_name}/base.yaml'
+        customBaseYaml, isValid_ = _check_and_return_yaml(getUserYaml(base_file))
+        module_config_path = base_file if isValid_ else None
 
-    pymc_file = module_name if module_name is not None else get_module_name_from_yaml()
+    if module_config_path is None:
+        base_file = module_name if module_name is not None else get_module_name_from_yaml()
+        module_config_path = get_pymc_config_yaml(base_file) if base_file is not None else get_pymc_config_yaml('_default')
 
     #module_config_path = get_pymc_config_yaml(module_name)
-    module_config_path = get_pymc_config_yaml(pymc_file) if pymc_file is not None else get_pymc_config_yaml('pymc-marketing')
+    print("module_config_path::::",module_config_path)
     configs,is_yaml = _check_and_return_yaml(
         merge_yaml(
             user_config_path=user_file,

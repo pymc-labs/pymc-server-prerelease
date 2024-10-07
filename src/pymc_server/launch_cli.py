@@ -353,6 +353,7 @@ def launch_2(
 ):
 
 
+
     # NOTE(dev): Keep the docstring consistent between the Python API and CLI.
     env = _merge_env_vars(env_file, env)
     controller_utils.check_cluster_name_not_controller(
@@ -363,6 +364,7 @@ def launch_2(
     task_or_dag = _make_task_or_dag_from_entrypoint_with_overrides(
         entrypoint=entrypoint,
         module_name=module_name,
+        base_config_folder=base_config_folder,
         name=name,
         workdir=workdir,
         cloud=cloud,
@@ -380,6 +382,7 @@ def launch_2(
         disk_tier=disk_tier,
         ports=ports,
     )
+
     if isinstance(task_or_dag, sky.Dag):
         raise click.UsageError(
             _DAG_NOT_SUPPORTED_MESSAGE.format(command='pymcs launch'))
@@ -425,6 +428,7 @@ def launch_2(
 def _make_task_or_dag_from_entrypoint_with_overrides(
     entrypoint: Tuple[str, ...],
     module_name:Optional[str],
+    base_config_folder:Optional[str],
     *,
     entrypoint_name: str = 'Task',
     name: Optional[str] = None,
@@ -454,7 +458,9 @@ def _make_task_or_dag_from_entrypoint_with_overrides(
         Otherwise, a task.
     """
     #entrypoint = ' '.join(entrypoint)
-    configs, is_yaml = get_config_from_yaml(entrypoint,module_name)
+
+
+    configs, is_yaml = get_config_from_yaml(entrypoint,module_name,base_config_folder)
     #is_yaml, _ = _check_yaml(entrypoint)
     entrypoint: Optional[str]
     if is_yaml:

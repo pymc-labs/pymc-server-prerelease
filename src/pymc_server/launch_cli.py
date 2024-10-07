@@ -406,6 +406,7 @@ def launch_2(
             f'{colorama.Style.RESET_ALL}')
 
     cluster_name = generate_cluster_name()
+
     _launch_with_confirm(task,
                          backend,
                          cluster=cluster_name,
@@ -419,8 +420,9 @@ def launch_2(
                          no_setup=no_setup,
                          clone_disk_from=clone_disk_from)
 
-    click.secho(f'new cluster:')
-    click.secho(cluster_name,fg='yellow')
+    click.secho(f'{colorama.Fore.YELLOW}new cluster'
+                f'{colorama.Style.RESET_ALL}{cluster_name}')
+
 
 
 
@@ -459,8 +461,12 @@ def _make_task_or_dag_from_entrypoint_with_overrides(
     """
     #entrypoint = ' '.join(entrypoint)
 
+    configs, is_yaml,module_config_path = get_config_from_yaml(entrypoint,module_name,base_config_folder)
+    click.secho(f'{colorama.Fore.GREEN}used base_config_folder:'
+                f'{colorama.Style.RESET_ALL}{base_config_folder}')
+    click.secho(f'{colorama.Fore.GREEN}used entrypoint:'
+                f'{colorama.Style.RESET_ALL}{entrypoint}')
 
-    configs, is_yaml = get_config_from_yaml(entrypoint,module_name,base_config_folder)
     #is_yaml, _ = _check_yaml(entrypoint)
     entrypoint: Optional[str]
     if is_yaml:

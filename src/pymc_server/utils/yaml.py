@@ -1,4 +1,5 @@
 import yaml
+import click
 import hiyapyco
 from typing import Any, Dict, List, Optional, Tuple, Union
 from sky import dag as dag_lib
@@ -154,6 +155,7 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],b
 
     #module_config_path = get_pymc_config_yaml(module_name)
     print("module_config_path::::",module_config_path)
+    click.secho(f'new cluster:')
     configs,is_yaml = _check_and_return_yaml(
         merge_yaml(
             user_config_path=user_file,
@@ -162,4 +164,4 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],b
     )
 
     if is_yaml: configs = [set_config(config) for config in configs]
-    return configs, is_yaml
+    return configs, is_yaml, module_config_path

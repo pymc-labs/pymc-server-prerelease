@@ -8,7 +8,7 @@ from pymc_server.down_cli import down as down_cli
 from pymc_server.cli_factory import setup_launch_factory, setup_status_factory
 from sky.usage import usage_lib
 from sky.cli import _get_shell_complete_args, _get_click_major_version, _complete_cluster_name, _NaturalOrderGroup, _DocumentedCodeCommand
-from pymc_server.utils.cli_ex import jobs_launch as ex_launch
+
 
 
 from sky.cli import (

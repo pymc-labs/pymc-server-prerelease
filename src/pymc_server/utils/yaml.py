@@ -125,7 +125,7 @@ def get_pymc_config_yaml(module_name, import_from="config", file_name="base.yaml
 
     # check that we have the config and support the module
     is_valid_module = file_exists and module_name in supported_modules
-    assert is_valid_module , f'Not Implemented: the only supported module are {supported_modules} but we may have config for additional modules: {list}'
+    assert is_valid_module , f'{colorama.Fore.RED}Not Implemented: {colorama.Style.RESET_ALL}the only supported module are {colorama.Fore.YELLOW}{supported_modules}{colorama.Style.RESET_ALL} but we may have config for additional modules: {colorama.Fore.YELLOW}{list}{colorama.Style.RESET_ALL}'
 
     return f'{base_path}/{import_from}/{module_name}/{file_name}'
 
@@ -155,7 +155,11 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],b
         exists(entrypoint[0])
     userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
 
+    current_module = module_name if module_name is not None else get_module_name_from_yaml()
     if base_config_path is not None:
+        if(current_module is None):
+            raise Exception(f'{colorama.Fore.RED}Please define a module for: '
+                            f'{colorama.Fore.YELLOW}{base_config_path}{colorama.Style.RESET_ALL}')
         base_file =  f'{base_config_path}/{module_name}/base.yaml'
         exists(base_file)
         #customBaseYaml, isValid_ = _check_and_return_yaml(getUserYaml(base_file))
@@ -163,7 +167,6 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],b
 
 
     if module_config_path is None:
-        current_module = module_name if module_name is not None else get_module_name_from_yaml()
         base_file = get_pymc_config_yaml(current_module if current_module is not None else "pymc-marketing")
         exists(base_file)
         module_config_path = base_file

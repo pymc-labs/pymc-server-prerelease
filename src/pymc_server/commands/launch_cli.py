@@ -420,7 +420,7 @@ def launch_2(
                          no_setup=no_setup,
                          clone_disk_from=clone_disk_from)
 
-    click.secho(f'{colorama.Fore.YELLOW}new cluster'
+    click.secho(f'{colorama.Fore.YELLOW}new cluster: '
                 f'{colorama.Style.RESET_ALL}{cluster_name}')
 
 
@@ -484,7 +484,6 @@ def _make_task_or_dag_from_entrypoint_with_overrides(
                         fg='yellow',
                         nl=False)
             click.secho(entrypoint, bold=True)
-
     override_params = _parse_override_params(cloud=cloud,
                                              region=region,
                                              zone=zone,

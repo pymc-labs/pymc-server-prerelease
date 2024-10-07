@@ -27,7 +27,9 @@ def merge_yaml(user_config_path, pymc_path):
         )
         ```
     """
-    merged_yaml = hiyapyco.load(pymc_path, user_config_path, method=hiyapyco.METHOD_MERGE)
+
+    merged_yaml = hiyapyco.load(pymc_path, user_config_path)
+
     return hiyapyco.dump(merged_yaml)
 
 def getUserYaml(path):

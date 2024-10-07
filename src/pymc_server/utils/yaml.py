@@ -31,8 +31,8 @@ def getUserYaml(path):
     merged_yaml = hiyapyco.load(path, path, method=hiyapyco.METHOD_MERGE)
     return hiyapyco.dump(merged_yaml)
 
-def get_pymc_module_from_yaml():
-    try :   return str(userYaml[0]['pymc_module'])
+def get_module_name_from_yaml():
+    try :   return str(userYaml[0]['module_name'])
     except: return None
 
 def load_chain_dag_from_yaml(
@@ -97,14 +97,13 @@ def _check_and_return_yaml(yaml_file) :#-> Tuple[bool, Optional[Dict[str, Any]]]
             result = {}
         if isinstance(result, str):
             # 'sky exec cluster ./my_script.sh'
-            is_yaml = False
-        print("done")
+            is_yaml = FalseHe
     except yaml.YAMLError as e:
         is_yaml = False
 
     return result, is_yaml
 
-def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml", supported_modules=['pymc-marketing']):
+def get_pymc_config_yaml(module_name, import_from="config", file_name="base.yaml", supported_modules=['pymc-marketing']):
     """
     Get's the base config for the pymc module
 
@@ -113,19 +112,19 @@ def get_pymc_config_yaml(pymc_module, import_from="config", file_name="base.yaml
         get_pymc_config_yaml('pymc-marketing')
         ```
     """
-    #assert pymc_module == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
+    #assert module_name == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
     base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
-    file_exists = os.path.isfile(f'{base_path}/{import_from}/{pymc_module}/{file_name}')
+    file_exists = os.path.isfile(f'{base_path}/{import_from}/{module_name}/{file_name}')
     list = ""
 
     if file_exists == False:
         list = ', '.join(os.listdir(f'{base_path}/{import_from}'))
 
     # check that we have the config and support the module
-    is_valid_module = file_exists and pymc_module in supported_modules
+    is_valid_module = file_exists and module_name in supported_modules
     assert is_valid_module , f'Not Implemented: the only supported module are {supported_modules} but we may have config for additional modules: {list}'
 
-    return f'{base_path}/{import_from}/{pymc_module}/{file_name}'
+    return f'{base_path}/{import_from}/{module_name}/{file_name}'
 
 def remove_key(d, key):
     r = dict(d)
@@ -133,20 +132,20 @@ def remove_key(d, key):
     return r
 
 def set_config(config):
-    try: return remove_key(config,'pymc_module')
+    try: return remove_key(config,'module_name')
     except: return config
 
 
-def get_config_from_yaml(entrypoint: Tuple[str, ...],pymc_module:Optional[str]):
+def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str]):
 
     user_file = entrypoint
     pymc_file = None
     userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
 
 
-    pymc_file = pymc_module if pymc_module is not None else get_pymc_module_from_yaml()
+    pymc_file = module_name if module_name is not None else get_module_name_from_yaml()
 
-    #module_config_path = get_pymc_config_yaml(pymc_module)
+    #module_config_path = get_pymc_config_yaml(module_name)
     module_config_path = get_pymc_config_yaml(pymc_file) if pymc_file is not None else get_pymc_config_yaml('pymc-marketing')
     configs,is_yaml = _check_and_return_yaml(
         merge_yaml(

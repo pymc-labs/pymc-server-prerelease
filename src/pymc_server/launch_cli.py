@@ -4,6 +4,7 @@ import click
 import sky
 import pymc_server
 import uuid
+import colorama
 from typing import  Dict, List, Optional, Tuple, Union
 
 from sky import Task
@@ -20,10 +21,15 @@ from sky.cli import _launch_with_confirm
 from pymc_server.utils.names import generate_cluster_name
 from pymc_server.utils.yaml import get_config_from_yaml,load_chain_dag_from_yaml
 
+from sky.cli import (
+    status as sky_status,
+    launch as sky_launch,
+    check as sky_check
+)
 
 def launch(
     entrypoint: Tuple[str, ...],
-    pymc_module:Optional[str],
+    module_name:Optional[str],
     cluster: Optional[str],
     dryrun: bool,
     detach_setup: bool,
@@ -53,7 +59,7 @@ def launch(
     clone_disk_from: Optional[str],
 ):
 
-    configs, is_yaml = get_config_from_yaml(entrypoint,pymc_module)
+    configs, is_yaml = get_config_from_yaml(entrypoint,module_name)
 
     entrypoint_name = 'Task',
     if is_yaml:
@@ -186,7 +192,7 @@ def launch(
 
 def cli_launch_(
     entrypoint: Tuple[str, ...],
-    pymc_module:Optional[str],
+    module_name:Optional[str],
     cluster: Optional[str],
     dryrun: bool,
     detach_setup: bool,
@@ -239,7 +245,7 @@ def cli_launch_(
     env = _merge_env_vars(env_file, env)
     task_or_dag = _make_task_or_dag_from_entrypoint_with_overrides(
         entrypoint,
-        pymc_module=pymc_module,
+        module_name=module_name,
         name=name,
         workdir=workdir,
         cloud=cloud,
@@ -312,7 +318,8 @@ def cli_launch_(
 
 def launch_2(
     entrypoint: Tuple[str, ...],
-    pymc_module:Optional[str],
+    module_name:Optional[str],
+    base_config_folder:Optional[str],
     cluster: Optional[str],
     dryrun: bool,
     detach_setup: bool,
@@ -345,6 +352,7 @@ def launch_2(
     down: bool = False
 ):
 
+
     # NOTE(dev): Keep the docstring consistent between the Python API and CLI.
     env = _merge_env_vars(env_file, env)
     controller_utils.check_cluster_name_not_controller(
@@ -354,7 +362,7 @@ def launch_2(
 
     task_or_dag = _make_task_or_dag_from_entrypoint_with_overrides(
         entrypoint=entrypoint,
-        pymc_module=pymc_module,
+        module_name=module_name,
         name=name,
         workdir=workdir,
         cloud=cloud,
@@ -374,7 +382,7 @@ def launch_2(
     )
     if isinstance(task_or_dag, sky.Dag):
         raise click.UsageError(
-            _DAG_NOT_SUPPORTED_MESSAGE.format(command='sky launch'))
+            _DAG_NOT_SUPPORTED_MESSAGE.format(command='pymcs launch'))
     task = task_or_dag
 
     backend: backends.Backend
@@ -389,14 +397,15 @@ def launch_2(
     if task.service is not None:
         logger.info(
             f'{colorama.Fore.YELLOW}Service section will be ignored when using '
-            f'`sky launch`. {colorama.Style.RESET_ALL}\n{colorama.Fore.YELLOW}'
+            f'`pymcs launch`. {colorama.Style.RESET_ALL}\n{colorama.Fore.YELLOW}'
             'To spin up a service, use SkyServe CLI: '
-            f'{colorama.Style.RESET_ALL}{colorama.Style.BRIGHT}sky serve up'
+            f'{colorama.Style.RESET_ALL}{colorama.Style.BRIGHT}pymcs serve up'
             f'{colorama.Style.RESET_ALL}')
 
+    cluster_name = generate_cluster_name()
     _launch_with_confirm(task,
                          backend,
-                         cluster=generate_cluster_name(),
+                         cluster=cluster_name,
                          dryrun=dryrun,
                          detach_setup=detach_setup,
                          detach_run=detach_run,
@@ -407,11 +416,15 @@ def launch_2(
                          no_setup=no_setup,
                          clone_disk_from=clone_disk_from)
 
+    click.secho(f'new cluster:')
+    click.secho(cluster_name,fg='yellow')
+
+
 
 
 def _make_task_or_dag_from_entrypoint_with_overrides(
     entrypoint: Tuple[str, ...],
-    pymc_module:Optional[str],
+    module_name:Optional[str],
     *,
     entrypoint_name: str = 'Task',
     name: Optional[str] = None,
@@ -441,7 +454,7 @@ def _make_task_or_dag_from_entrypoint_with_overrides(
         Otherwise, a task.
     """
     #entrypoint = ' '.join(entrypoint)
-    configs, is_yaml = get_config_from_yaml(entrypoint,pymc_module)
+    configs, is_yaml = get_config_from_yaml(entrypoint,module_name)
     #is_yaml, _ = _check_yaml(entrypoint)
     entrypoint: Optional[str]
     if is_yaml:
@@ -518,4 +531,3 @@ def _make_task_or_dag_from_entrypoint_with_overrides(
         task.name = name
 
     return task
-

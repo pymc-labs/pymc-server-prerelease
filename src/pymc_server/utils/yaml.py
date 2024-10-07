@@ -1,5 +1,6 @@
 import yaml
 import click
+import colorama
 import hiyapyco
 from typing import Any, Dict, List, Optional, Tuple, Union
 from sky import dag as dag_lib
@@ -9,6 +10,7 @@ import os.path
 import pymc_server
 
 from .names import generate_cluster_name
+
 
 def merge_yaml(user_config_path, pymc_path):
     """
@@ -137,25 +139,33 @@ def set_config(config):
     except: return config
 
 
+def exists(path):
+    exists_ =  os.path.exists(path)
+    print(f"exists_ :{exists_}")
+    if exists_ is False:
+       raise Exception(f'{colorama.Fore.RED}File Not Found: '
+                       f'{colorama.Fore.YELLOW}{path}{colorama.Style.RESET_ALL}')
+
 def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],base_config_path:Optional[str]):
 
     user_file = entrypoint
     base_file = None
-
+    if entrypoint is not ():
+        exists(entrypoint[0])
     userYaml, isValid = _check_and_return_yaml(getUserYaml(entrypoint))
 
     if base_config_path is not None:
         base_file =  f'{base_config_path}/{module_name}/base.yaml'
-        customBaseYaml, isValid_ = _check_and_return_yaml(getUserYaml(base_file))
-        module_config_path = base_file if isValid_ else None
+        exists(base_file)
+        #customBaseYaml, isValid_ = _check_and_return_yaml(getUserYaml(base_file))
+        module_config_path = base_file
 
     if module_config_path is None:
-        base_file = module_name if module_name is not None else get_module_name_from_yaml()
-        module_config_path = get_pymc_config_yaml(base_file) if base_file is not None else get_pymc_config_yaml('_default')
+        base_file = get_pymc_config_yaml(module_name if module_name is not None else get_module_name_from_yaml())
+        exists(base_file)
+        module_config_path = base_file
 
-    #module_config_path = get_pymc_config_yaml(module_name)
-    print("module_config_path::::",module_config_path)
-    click.secho(f'new cluster:')
+
     configs,is_yaml = _check_and_return_yaml(
         merge_yaml(
             user_config_path=user_file,

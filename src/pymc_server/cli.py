@@ -2,9 +2,9 @@ import click
 import sky
 from typing import Any, Dict, List, Optional, Tuple, Union
 from pymc_server.utils.yaml import merge_yaml
-from pymc_server.launch_cli import launch as cli_launch,cli_launch_
-from pymc_server.launch_cli import launch_2
-from pymc_server.down_cli import down as down_cli
+#from pymc_server.commands.launch_cli import launch as cli_launch,cli_launch_
+from pymc_server.commands.launch_cli import launch_2
+from pymc_server.commands.down_cli import down as down_cli
 from pymc_server.cli_factory import setup_launch_factory, setup_status_factory
 from sky.usage import usage_lib
 from sky.cli import _get_shell_complete_args, _get_click_major_version, _complete_cluster_name, _NaturalOrderGroup, _DocumentedCodeCommand
@@ -29,10 +29,8 @@ def status(*args, **kwargs):
     ctx = click.get_current_context()
     #ctx.invoke(_status_test, *args, **kwargs)
     print("*args",*args)
-
-
     data = ctx.invoke(sky_status, *args, **kwargs)
-    print("DATA",data)
+    #print("DATA",data)
 
     #ctx.invoke(sky_status, *args, **kwargs)
 
@@ -96,6 +94,7 @@ def down(*args, **kwargs):
     #sky_check(*args, **kwargs)
     ctx.invoke(down_cli, *args, **kwargs)
     """Deletes a local cluster."""
+
 
 
 cli.add_command(status)

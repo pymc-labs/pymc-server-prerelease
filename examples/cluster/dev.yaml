@@ -8,7 +8,7 @@ resources:
   ports : 80
 
 workdir: ./src/pymc_server/workDir_test
-pymc_module: pymc-marketing
+module_name: pymc-marketing
 run: |
   echo "Hello, SkyPilot!"
   uname -a

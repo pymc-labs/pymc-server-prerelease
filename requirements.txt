@@ -1,4 +1,3 @@
-pymc-marketing
 nutpie
 lifetimes
 numba

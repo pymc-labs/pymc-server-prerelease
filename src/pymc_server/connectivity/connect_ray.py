@@ -1,5 +1,6 @@
 import os
 import ray
+import traceback
 from ray import remote
 from pymc_server.config.config_connectivity import (
     DEFAULTS_CONNECTIVITY_YOU_ARE_NOT_CONNECTED_MSG,
@@ -83,6 +84,7 @@ class RemoteStatefulActorWrapper:
         # List of local attributes that are resolved NOT remotely, we have overwritten __setattr__ and __getattr__ so we can't just do self.foo
         self.__dict__['local_attrs'] = set([
             'actor',
+            '_kill',
             'local_attrs',
             'allow_local_fallback',
             'namespace',
@@ -117,48 +119,95 @@ class RemoteStatefulActorWrapper:
             namespace=self.namespace
         ).remote(*args, **kwargs)
 
-    def _graceful_reconnect_actor_strategy(self, env_vars={}, namespace=None, *args, **kwargs):
-        """Will try to reconnect or build a new connection if no actor is found """
+    def _graceful_reconnect_actor_strategy(self, namespace=None, *args, **kwargs):
+        """
+        Will try to reconnect or build a new connection if no actor is found .
+        Deployment Strategy:
+        
+        a) good connection
+        We'll connect to the remote instance
+
+        b) bad connection - allow_local_fallback = True
+        Will complain but connect to a locally started instance
+
+        c) bad connection - allow_local_fallback = False
+        Complain and crash the program
+        """
         print('Initializing connect/ reconnect.')
-        ray.init(
-            namespace=self.namespace,
-            runtime_env={
-                "env_vars": env_vars,
-            }
-        )
         maybe_actor = None
+        # controls if we want to error out
+        have_grace = True
+        env_vars = {}
+        if self.debug:
+            env_vars.update({DEFEAULTS_RAY_DEBUG_ENV_VAR_NAME: "1"})
+
+        should_fail_when_no_active_ray = not(self.allow_local_fallback)
+        try:
+            ray.init(
+                address='auto',# if should_fail_when_no_active_ray else None,
+                namespace=self.namespace,
+                runtime_env={
+                    "env_vars": env_vars,
+                }
+            )
+        except Exception as e:
+            have_grace = False
+            print(traceback.format_exc())
+            pass
+
+        try:
+            # skip the next step if we have a good connection
+            self._raise_already_connected_on_good_connection()
+            # try to initiate a new connection
+            maybe_actor = self._connect_actor(*args, **kwargs) if have_grace else None
+            # we're getting sure there's no good connection
+
+        # we might have still a good chance for a good connection, check it next
+        except Exception as e:
+            print(e)
+            pass
         # try a reconnect to our actor first, 
         # if this fails ini a new connection
         try:
             maybe_actor = self._reconnect_actor()
-            # skip the next step if we have a good connection
-            self._raise_already_connected_on_good_connection()
-            # try to initiate a new connection
-            maybe_actor = self._connect_actor(*args, **kwargs)
 
         # we might have still a good chance for a good connection, check it next
         except Exception as e:
             print(e)
             pass
 
+
+        # If the connection is good, return the actor.
+        # if we're not connected here, we're either seeing a completely new instance or going to fallback mode. 
+        if maybe_actor:
+            return maybe_actor
+
+        # if fallback mode is not allowed, error the program
+        if not(self.allow_local_fallback) and not(have_grace): raise NotConnectedError(DEFAULTS_CONNECTIVITY_YOU_ARE_NOT_CONNECTED_MSG)
+        # try to initiate a new connection, this will connect to ta local ray instance or a remote instance if we have never seen it
+        try:
+            maybe_actor = self._connect_actor(*args, **kwargs)
+
+        except Exception as e:
+            print(e)
+            pass # the connection will be checked again
+
+        # show a waring to the user since we are in fallback mode
+        if(self.allow_local_fallback): self._raise_not_connected(warn_only=True)
+
         return maybe_actor
 
 
     def _init_connection(self, *args, **kwargs):
         # make remote debugger listeners
-        env_vars = {}
-        if self.debug:
-            env_vars.update({DEFEAULTS_RAY_DEBUG_ENV_VAR_NAME: "1"})
-
         # first connection attempt, return if good
-        kwargs.update({'env_vars': env_vars})
         self.actor = self._graceful_reconnect_actor_strategy(*args, **kwargs)
 
         maybe_connected = self._check_is_connected()
         self.is_connected = maybe_connected
         if self.is_connected:
             return True
-
+        return False
         # we're not allowed to continue, fail the program.
         if not(self.allow_local_fallback):
             self._raise_not_connected()
@@ -168,7 +217,8 @@ class RemoteStatefulActorWrapper:
             self._raise_not_connected(warn_only=True)
             self.actor = self._connect_actor(*args, **kwargs)
 
-        except Exception:
+        except Exception as e:
+            print(traceback.format_exc())
             pass # we'll raise next if the connection failed
 
         # final check 
@@ -180,9 +230,10 @@ class RemoteStatefulActorWrapper:
         Raise (or warn) when  connected. 
         This is useful for breaking a reconnect flow.
         """
+        is_connected = self._check_is_connected()
+
         msg = custom_message if custom_message else DEFAULTS_CONNECTIVITY_ALREADY_CONNECTED_MSG 
-        if not(warn_only): raise AlreadyConnected(msg)
-        print(msg)
+        if not(warn_only) and is_connected: raise AlreadyConnected(msg)
 
     def _raise_not_connected(self, custom_message=None, warn_only=False):
         """
@@ -255,6 +306,6 @@ class RemoteStatefulActorWrapper:
             self.actor.set_attribute.remote(attr_name, value)
 
     def _is_debug_level(self, level=1): return int(os.getenv('DEBUG', 0)) >= level
-    def __kill__(self): ray.kill(self.actor)
+    def _kill(self): ray.kill(self.actor)
 
 

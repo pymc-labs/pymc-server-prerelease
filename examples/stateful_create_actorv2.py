@@ -89,8 +89,18 @@ class Actor:
     def __init__(self, foo, bar):
         self.foo = foo
         self.bar = bar
+        self.invocation_count = 0
+        self.baz = 1
+
+    def _foobar(self):
+        print(super())
+        self.invocation_count += 1
+        self.baz=42
+        #self.set_attribute('invocation_count', 100)
+        return 'foobar'
 
     def get_attribute(self, attr_name):
+        print("getattr", attr_name)
         return getattr(self, attr_name)
 
     def set_attribute(self, attr_name, value):
@@ -100,8 +110,20 @@ class ActorWrapper:
     def __init__(self, foo, bar):
         self.actor = Actor.options(name="stateful_actor", lifetime="detached", namespace="my_namespace").remote(foo, bar)
 
+
     def __getattr__(self, attr_name):
-        return ray.get(self.actor.get_attribute.remote(attr_name))
+        # Get the attribute from the actor
+        attr= ray.get(self.actor.get_attribute.remote(attr_name))
+
+        # If the attribute is a method, return a function that calls the method remotely
+        if callable(attr):
+            def func(*args, **kwargs):
+                return ray.get(attr.remote(*args, **kwargs))
+            return func
+
+        # If the attribute is not a method, get its latest value from the actor
+        else:
+            return ray.get(self.actor.get_attribute.remote(attr_name))
 
     def __setattr__(self, attr_name, value):
         if attr_name == "actor":

@@ -68,6 +68,9 @@ class StatefulActor:
         return self._state.get(key, None)
     """
 
+    def get_attribute(self, attr_name):
+        return getattr(self, attr_name)
+
     def foobar(self):
         # Increment invocation_count normally
         print('will halt')
@@ -81,14 +84,46 @@ class StatefulActor:
     def get_dynamic_value(self, key):
         return self._state.get(key, None)
 
+@ray.remote
+class Actor:
+    def __init__(self, foo, bar):
+        self.foo = foo
+        self.bar = bar
+
+    def get_attribute(self, attr_name):
+        return getattr(self, attr_name)
+
+    def set_attribute(self, attr_name, value):
+        setattr(self, attr_name, value)
+
+class ActorWrapper:
+    def __init__(self, foo, bar):
+        self.actor = Actor.options(name="stateful_actor", lifetime="detached", namespace="my_namespace").remote(foo, bar)
+
+    def __getattr__(self, attr_name):
+        return ray.get(self.actor.get_attribute.remote(attr_name))
+
+    def __setattr__(self, attr_name, value):
+        if attr_name == "actor":
+            self.__dict__[attr_name] = value
+        else:
+            self.actor.set_attribute.remote(attr_name, value)
+
+
 
 # Initialize Ray
 ray.init(
-    runtime_env={
+runtime_env={
         "env_vars": {"RAY_DEBUG": "1"},
     }
 )
 
+wrapper = ActorWrapper('foo', 'bar')
+foo = wrapper.foo
+wrapper.foo = 'new_foo_value'
+
+"""
+breakpoint()
 # Create a detached actor under the namespace "my_namespace"
 actor = StatefulActor.options(
     name="stateful_actor", 
@@ -97,7 +132,6 @@ actor = StatefulActor.options(
 ).remote()
 
 #  breakpoint()
-"""
 # Use the abstracted way to set and get values dynamically
 actor.key1 = 'value1'  # Abstracted assignment
 print(ray.get(actor.key1))  # Outputs: value1

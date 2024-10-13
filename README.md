@@ -3,7 +3,14 @@
 ## what does it do
 
 The Tool will be used to deploy on skypilot. It aims to simplify the deployment process. 
-In the end, the application needs to merge different .yaml files (pyMc-/user Files) together 
+In the end, the application needs to merge different .yaml files (pyMc-/user Files) together.
+
+The library can be used and configured in 3 forms
+
+- via a Python API and by passing configuration as parameters
+- via the CLI and YAML files for configuration
+- via the CLI and command line parameters for configuration.
+ 
 # Quickstart
 
 ## Installation
@@ -25,7 +32,7 @@ cd PyMC-Server
 pip3 install . # run `pip3 install -e .` if you want to be able to edit the code
 ```
 
-### Setting up a cloud: Google Cloud
+## Setting up a cloud: Google Cloud
 
 1. Run `pymcs check` to see if you already have credentials setup. If you see a green checkmark for GCP (Google Cloud Platform), skip to the next section
 2. Install the google cloud SDK and authenticate.
@@ -71,7 +78,12 @@ roles/iam.securityAdmin
 
   >Note: If you use PyMC-Server as part of an organization, your GCP admin might have setup a role already (e.g. `pymc-server-role `) and you can easily attach your user to it.
 
-### Status of your deployments
+# Yaml configuration
+# Command Line Usage 
+## Start a new single or multi-node cluster (with YAML configuration)
+Setup a configuration file (see #Yaml-configuration)
+## Start a new single or multi-node cluster (with CLI parameter configuration)
+## Status of your deployments
 
 To check the status of all your deployments run `pymcs status`. A table is printed to your terminal.
 

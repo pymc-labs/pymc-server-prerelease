@@ -1,0 +1,50 @@
+# start and stop GCP instances
+name: pymcs-benchmark-base
+
+resources:
+  cloud: gcp
+  cpus: 2+
+  ports:
+    # Ports for Ray head node and worker nodes
+    - 6383  # GCS server (Ray head node port)
+    - 8263  # Dashboard port (optional, if --include-dashboard is true)
+    - 50001  # Ray client server port
+
+num_nodes: 1
+envs:
+  LLM_DEVICE: NONE # CPU or CUDA
+
+# this will be synced to the node as `~/sky_workdir`
+workdir: ./
+# The setup command.  Will be run under the working directory.
+setup: |
+  set -e  # Exit if any command failed.
+
+  # install pixi and project dependencies
+  curl -fsSL https://pixi.sh/install.sh | bash
+  source /home/gcpuser/.bashrc
+  pixi install --manifest-path pyproject.toml -e server
+
+
+  # FIXME: check why ray client is not installed from pixi, setup is correct according to https://pixi.sh/latest/reference/project_configuration/#version-specification
+  pixi run \
+        --environment server \
+        --manifest-path pyproject.toml \
+        pip3 install "ray[default,client]==2.37.0"
+
+   
+  # start separate ray for pymc-server
+  # TODO: Launch the head-only command only on the first node in multinode setup
+  pixi run \
+        --environment server\
+        --manifest-path pyproject.toml \
+        ray start \
+            --head \
+            --port=6383 \
+            --ray-client-server-port=50001 \
+            --dashboard-host=0.0.0.0 \
+            --dashboard-port=8263 \
+            --disable-usage-stats
+            
+
+

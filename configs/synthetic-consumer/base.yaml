@@ -1,0 +1,98 @@
+# start and stop GCP instances
+name: synthetic-consumers-base
+
+resources:
+  cloud: gcp
+  cpus: 1+
+  accelerators: L4:1
+  ports:
+    # Ports for Ray head node and worker nodes
+    - 6383  # GCS server (Ray head node port)
+    - 8263  # Dashboard port (optional, if --include-dashboard is true)
+    - 50001  # Ray client server port
+
+num_nodes: 1
+envs:
+  LLM_DEVICE: CUDA # CPU or CUDA
+
+# this will be synced to the node as `~/sky_workdir`
+workdir: ./
+# The setup command.  Will be run under the working directory.
+setup: |
+  set -e  # Exit if any command failed.
+
+  # install pixi and project dependencies
+  curl -fsSL https://pixi.sh/install.sh | bash
+  source /home/gcpuser/.bashrc
+  pixi install --manifest-path pyproject.toml -e ray
+
+  # install system requirements needed for CPU based vllm inference
+  if [ "${LLM_DEVICE}" == "CPU" ]; then
+    echo "THIS FEATURE IS NOT IMPLEMENTED YET. Please set envs: LLM_DEVICE to CPU" >&2  # Print error message to stderr
+    exit 1  # Exit with status code 1 
+
+    sudo apt-get install -y libssl-dev
+    sudo mkdir /opt/vllm && sudo chown gcpuser /opt/vllm
+    git clone https://github.com/vllm-project/vllm.git /opt/vllm && cd /opt/vllm && git fetch --all --tags && git checkout tags/v0.6.2
+
+    # Build vllm for CPU using a docker environment. This saves us from a lot of hustle for the >1 year old Google Deep Learning Base Images.
+    echo "NOTICE!: Building NDLL - this process can take **up to an hour** if using a minimal compute instance. Switch to a stronger instance or better use a GPU instance to avoid this step alltogether. "
+    # FIXME: this builds wheels for python 3.10, but we need them for 3.12
+    cd /opt/vllm && DOCKER_BUILDKIT=1  docker build -f Dockerfile.cpu -t vllm-cpu-env --shm-size=4g .
+    # TODO. copy wheels from /workspace/vllm/build/ to local filesystem and install them
+     
+    # /* REMOVE
+    pixi run \
+          --environment ray \
+          --manifest-path pyproject.toml \
+          pip3 install wheel packaging ninja setuptools>=49.4.0 numpy setuptools-scm
+          
+    # build torch cpu
+    pixi run \
+          --environment ray \
+          --manifest-path pyproject.toml \
+          pip3 install torch --index-url https://download.pytorch.org/whl/cpu # torch CPU 
+
+    # build vllm torch integration
+    VLLM_TARGET_DEVICE=cpu pixi run \
+          --environment ray \
+          --manifest-path pyproject.toml \
+         bash -c "cd /opt/vllm/ && python setup.py install" # vllm setup is required for CPU
+   #
+   # REMOVE END */
+  fi
+
+  # FIXME: check why ray client is not installed from pixi, setup is correct according to https://pixi.sh/latest/reference/project_configuration/#version-specification
+  pixi run \
+        --environment ray \
+        --manifest-path pyproject.toml \
+        pip3 install "ray[default,client]==2.37.0" "huggingface_hub[hf_transfer]"
+
+  pixi run \
+        --environment ray \
+        --manifest-path pyproject.toml \
+        pip3 install --force-reinstall "torch"
+   
+  # start separate ray for pymc-server
+  # TODO: Launch the head-only command only on the first node in multinode setup
+  pixi run \
+        --environment ray \
+        --manifest-path pyproject.toml \
+        ray start \
+            --head \
+            --port=6383 \
+            --ray-client-server-port=50001 \
+            --dashboard-host=0.0.0.0 \
+            --dashboard-port=8263 \
+            --disable-usage-stats
+            
+  # Download the model early. Downloads to ~/.cache/huggingface . All HF compatible libraries will try to find a model here.
+  echo "Downloading your model - depending on the size of the model this may take a while"
+  HF_HUB_ENABLE_HF_TRANSFER=1 pixi run \
+        --environment ray \
+        --manifest-path pyproject.toml \
+        huggingface-cli download microsoft/Phi-3-mini-4k-instruct
+
+  # TODO: download the model from HF via MODLE_NAME env (might need HF_HUB_TOKEN)
+
+

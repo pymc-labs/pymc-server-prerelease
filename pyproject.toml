@@ -28,3 +28,55 @@ Issues = "https://github.com/pymc-devs/PyMC-Server/issues"
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "linux-64"]
+
+[tool.pixi.feature.client]
+platforms = ["linux-64"]
+
+[tool.pixi.feature.client.dependencies]
+python = {version = "==3.12.6"}
+six = ">=1.16.0,<2"
+pip = ">=24.2,<25"
+setuptools = ">=75.1.0,<76"
+wheel = ">=0.44.0,<0.45"
+openai = ">=0.0.1"
+google-cloud-sdk = ">=494.0.0"
+cryptography = {version = ">=43.0.1"}
+
+[tool.pixi.feature.client.pypi-dependencies]
+skypilot = {version = ">=0.6.1,<1", extras = ["gcp", "kubernetes"] }
+# pymc_server = { path = "/home/korny/Dev/PYMC/pymc-server", editable = true }
+hiyapyco={version=">=0.6.1,<1"}
+# google-cloud={version=">=0.34.0,<1"}
+ray = {version="==2.37.0", extras=["default", "client"]}
+
+[tool.pixi.feature.ray]
+dependencies = {python = {version = "==3.12.6"}}
+
+[tool.pixi.feature.ray.pypi-dependencies]
+setuptools = ">=75.1.0,<76"
+ray = {version = "==2.37.0", extras=["default", "client"]}
+
+[tool.pixi.feature.pymc]
+#dependencies = {openai = ">=1.47.0,<2"}
+dependencies = {python = {version = "==3.12.6"}}
+
+[tool.pixi.feature.pymc.pypi-dependencies]
+nutpie = ">=0.13.2,<0.14"
+zarr = ">=2.18.3,<3"
+pytensor = ">=2.25.5,<3"
+pymc = ">=5.17.0,<6"
+
+
+
+[tool.pixi.environments]
+default = ["client"]
+server = ["ray", "pymc"]
+client = ["client"]
+pymc = ["pymc"]
+
+[tool.pixi.dependencies]
+setuptools = ">=75.1.0,<76"
+

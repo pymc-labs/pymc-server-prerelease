@@ -1,0 +1,17 @@
+# load this via `pymcs -b configs -m synthetic-consumers remote_consumer_model.yaml`
+# The command to run.  Will be run under the working directory.
+resources:
+  cloud: gcp
+  cpus: 1+
+  accelerators: L4:1
+run: |
+  set -e  # Exit if any command failed.
+  echo "Available models on this instance:"
+  # list locally available models
+  HF_HUB_ENABLE_HF_TRANSFER=1 pixi run \
+        --environment ray \
+        --manifest-path pyproject.toml \
+        huggingface-cli scan-cache
+
+  echo "Your instance is ready. Connect to it with pymc_server.connect(IP-ADDRESS). Find the IP-ADDRESS by running 'pymcs status', note the NODE-NAME and run 'pymcs status --ip NODE-NAME' to print your IP"
+

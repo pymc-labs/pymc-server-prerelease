@@ -79,11 +79,18 @@ def setup_launch_factory(func):
                         type=str,
                         nargs=-1,
                         **_get_shell_complete_args(_complete_file_name)),
-        click.option('--pymc_module',
+        click.option('--module-name',
                       '-m',
+                      #default='pymc-marketing',
                       required=False,
                       type=str,
-                      help=('Define the PyMC module / project you need tu use')),
+                      help=('Define the PyMC module / project you need tu use. '
+                            'pymc-marketing is default.')),
+        click.option('--base-config-folder',
+                     '-b',
+                     required=False,
+                     type=str,
+                     help=('define config base Folder')),
         click.option('--cluster',
                       '-c',
                       default=None,
@@ -164,7 +171,18 @@ def setup_launch_factory(func):
             **_get_shell_complete_args(_complete_cluster_name),
             help=('[Experimental] Clone disk from an existing cluster to launch '
                   'a new one. This is useful when the new cluster needs to have '
-                  'the same data on the boot disk as an existing cluster.'))
+                  'the same data on the boot disk as an existing cluster.')),
+        click.option(
+            '--down',
+            default=False,
+            is_flag=True,
+            required=False,
+            help=
+            ('Autodown the cluster: tear down the cluster after all jobs finish '
+             '(successfully or abnormally). If --idle-minutes-to-autostop is also set, '
+             'the cluster will be torn down after the specified idle time. '
+             'Note that if errors occur during provisioning/data syncing/setting up, '
+             'the cluster will not be torn down for debugging purposes.'))
     ]
 
     for option in reversed(options):

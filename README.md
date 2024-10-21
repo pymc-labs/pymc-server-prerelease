@@ -15,18 +15,17 @@ The library can be used and configured in 3 forms
 
 ## Installation
 
-Start a new virtual environment with micromamba (conda/mamba/or similar).
+Start a new virtual environment with pixi. To get a shell in the default environment run
 
 ```bash
-micromamba create -n pymc-server -c conda-forge python=3.12
-micromamba activate pymc-server
+pixi shell
 ```
 
 Install this library from PiPy `pip3 install pymc-server`
 
 If you want to install this library from source:
 ```bash
-git clone https://github.com/pymc-dev/PyMC-Server
+git clone https://github.com/pymc-labs/pymc-server
 cd PyMC-Server
 
 pip3 install . # run `pip3 install -e .` if you want to be able to edit the code

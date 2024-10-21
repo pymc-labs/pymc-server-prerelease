@@ -105,11 +105,11 @@ class PymcTraceActor:
         compiled = nutpie.compile_pymc_model(freeze_dims_and_data(model), backend="numba")
 
         # Sample using nutpie
-        tr = nutpie.sample(compiled, store_unconstrained=True, store_gradient=True, seed=123)
+        #tr = nutpie.sample(compiled, store_unconstrained=True, store_gradient=True, seed=123)
         _ = tr.to_zarr("/tmp/output.zarr")
         self.result = tr
-        from ray.util import inspect_serializability
-        self.is_ser = inspect_serializability(tr, name="tr")
+        #  from ray.util import inspect_serializability
+        #  self.is_ser = inspect_serializability(tr, name="tr")
 
         self.done = True
 
@@ -121,6 +121,8 @@ server = RemoteStatefulActorWrapper(
     bar='911'
 )
 
-#print(server.run())
+server.run()
+print(server.result)
+server._kill()
 
-breakpoint()
+#breakpoint()

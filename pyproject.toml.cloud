@@ -20,11 +20,12 @@ pymcs = "pymc_server.cli:cli"
 
 
 [project.urls]
-Homepage = "https://github.com/pymc-labs/pymc-server"
-Issues = "https://github.com/pymc-labs/pymc-server/issues"
+Homepage = "https://github.com/pymc-dev/PyMC-Server"
+Issues = "https://github.com/pymc-devs/PyMC-Server/issues"
 
 [project.optional-dependencies]
-client = ["s3fs>=2024.9.0,<2025"]
+server = ["pytz"]
+pymc = ["pytz"]
 
 
 [build-system]
@@ -47,18 +48,12 @@ wheel = ">=0.44.0,<0.45"
 openai = ">=0.0.1"
 google-cloud-sdk = ">=494.0.0"
 cryptography = {version = ">=43.0.1"}
-arviz = ">=0.20.0"
-xarray = ">=2024.9.0,<2025"
-zarr = ">=2.18.3,<3"
 
 [tool.pixi.feature.client.pypi-dependencies]
 skypilot = {version = ">=0.6.1,<1", extras = ["gcp", "kubernetes"] }
-pymc-server = { path = "./", editable = true }
-# TODO: add pymc server
 hiyapyco={version=">=0.6.1,<1"}
 # google-cloud={version=">=0.34.0,<1"}
 ray = {version="==2.37.0", extras=["default", "client"]}
-python-dateutil = ">=2.9.0,<3"
 
 [tool.pixi.feature.ray]
 dependencies = {python = {version = "==3.12.6"}}
@@ -66,18 +61,26 @@ dependencies = {python = {version = "==3.12.6"}}
 [tool.pixi.feature.ray.pypi-dependencies]
 setuptools = ">=75.1.0,<76"
 ray = {version = "==2.37.0", extras=["default", "client"]}
-
-[tool.pixi.feature.pymc]
 #dependencies = {openai = ">=1.47.0,<2"}
-dependencies = {python = {version = "==3.12.6"}}
-# TODO:
-#numba
+
+[tool.pixi.feature.pymc.dependencies]
+pymc = ">=5.13"
+python = {version = "==3.12.6"}
+numba = ">=0.60.0,<0.61"
+pytz="*"
 
 [tool.pixi.feature.pymc.pypi-dependencies]
+pymc_server = { path = "/pymc-server", editable = true }
 nutpie = ">=0.13.2,<0.14"
 zarr = ">=2.18.3,<3"
-pytensor = ">=2.25.5,<3"
-pymc = ">=5.17.0,<6"
+numba = ">=0.60"
+#pymc=">=5"
+numpy="==1.26.4"
+pymc = ">=5.13"
+arviz = ">=0.20.0"
+
+
+[tool.pixi.feature.server.dependencies]
 
 
 
@@ -85,7 +88,7 @@ pymc = ">=5.17.0,<6"
 default = ["client"]
 server = ["ray", "pymc"]
 client = ["client"]
-pymc = ["pymc"]
+pymc = ["pymc", "ray"]
 
 [tool.pixi.dependencies]
 setuptools = ">=75.1.0,<76"

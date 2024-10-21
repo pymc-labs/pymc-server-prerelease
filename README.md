@@ -98,3 +98,8 @@ No in-progress managed jobs. (See: pymcs jobs -h)
 Services
 No live services. (See: pymcs serve -h)
 ```
+
+
+## Using pymcs to deploy custom software.
+
+Using configuration files allows you to install custom software on your cloud nodes. Due to `ssh agent` forwarding, you are able to `git clone` even private repositories on remote infrastructure without sharing any credentials as text with the machine. This assumes your laptop has SSH access to the private repo.

@@ -203,7 +203,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/5a/84/44687a29792a70e111c5c477230a72c4b957d88d16141199bf9acb7537a3/websocket_client-1.8.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/62/62/30ca2405de6a20448ee557ab2cd61ab9c5900be7cbd18a2639db595f0b98/wrapt-1.16.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/10/77/1db077601998e0831a540a690dcb0f450c31f64c492e993e2eaadfbc7d31/yarl-1.15.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-      - pypi: /home/korny/Dev/PYMC/pymc-server
+      - pypi: ./
   default:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
@@ -407,7 +407,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/5a/84/44687a29792a70e111c5c477230a72c4b957d88d16141199bf9acb7537a3/websocket_client-1.8.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/62/62/30ca2405de6a20448ee557ab2cd61ab9c5900be7cbd18a2639db595f0b98/wrapt-1.16.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/10/77/1db077601998e0831a540a690dcb0f450c31f64c492e993e2eaadfbc7d31/yarl-1.15.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-      - pypi: /home/korny/Dev/PYMC/pymc-server
+      - pypi: ./
   pymc:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
@@ -4346,8 +4346,8 @@ packages:
 - kind: pypi
   name: pymc-server
   version: 0.0.1
-  path: /home/korny/Dev/PYMC/pymc-server
-  sha256: 3fb385b58da8f54f08f190714c4fe6152e3885bc4897c754fa8257649f2b0580
+  path: ./
+  sha256: 2c0f464abc7d5ed42a05b8c39658cc50cd4fc5b911e40bfc259bd591d135da39
   requires_dist:
   - click
   - s3fs>=2024.9.0,<2025 ; extra == 'client'

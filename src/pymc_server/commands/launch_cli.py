@@ -168,7 +168,7 @@ def launch(
     sky.optimize(dag)
 
 
-    click.secho(f"service_name, {"service_name"}:", fg='cyan')
+    click.secho(f"service_name, {service_name}:", fg='cyan')
 
     if service_name is None:
             service_name = serve_lib.generate_service_name()

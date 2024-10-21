@@ -1,0 +1,67 @@
+# start and stop GCP instances
+name: pymcs-benchmark-base
+
+resources:
+  cloud: gcp
+  cpus: 2+
+  ports:
+    # Ports for Ray head node and worker nodes
+    - 6383  # GCS server (Ray head node port)
+    - 8263  # Dashboard port (optional, if --include-dashboard is true)
+    - 50001  # Ray client server port
+    - 50002  # Ray client server port
+
+num_nodes: 1
+envs:
+  LLM_DEVICE: NONE # CPU or CUDA
+
+# this will be synced to the node as `~/sky_workdir`
+file_mounts:
+  # Format: <cluster path>: <local path/cloud object URI>
+  /pymc-server: /tmp/pymc-server
+workdir: ./
+# The setup command.  Will be run under the working directory.
+setup: |
+  set -e  # Exit if any command failed.
+
+  # storage layer
+  sudo mkdir /data
+  sudo chown gcpuser -R /data
+  wget https://dl.min.io/server/minio/release/linux-amd64/archive/minio_20241002175041.0.0_amd64.deb -O minio.deb
+  sudo dpkg -i minio.deb
+
+  # install pixi and project dependencies
+  curl -fsSL https://pixi.sh/install.sh | bash
+  source /home/gcpuser/.bashrc
+
+  cp pyproject.toml pyproject.toml.orig
+  cp pyproject.toml.cloud pyproject.toml
+
+  pixi install --manifest-path pyproject.toml -e pymc
+
+
+  # FIXME: check why ray client is not installed from pixi, setup is correct according to https://pixi.sh/latest/reference/project_configuration/#version-specification
+  pixi run \
+        --environment pymc \
+        --manifest-path pyproject.toml \
+        pip3 install "ray[default,client]==2.37.0"
+
+   
+  # start separate ray for pymc-server
+  # TODO: Launch the head-only command only on the first node in multinode setup
+  pixi run \
+        --environment pymc\
+        --manifest-path pyproject.toml \
+        ray start \
+            --head \
+            --port=6383 \
+            --ray-client-server-port=50001 \
+            --dashboard-host=0.0.0.0 \
+            --dashboard-port=8263 \
+            --disable-usage-stats
+
+  # this will block
+  nohup minio server /data --address 0.0.0.0:50002 > minio.log 2>&1 &
+  minio server /data 
+
+

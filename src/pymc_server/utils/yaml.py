@@ -119,6 +119,7 @@ def get_pymc_config_yaml(module_name, import_from="config", file_name="base.yaml
     """
     #assert module_name == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
     base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
+    print(f"base_path::{base_path}")
     file_exists = os.path.isfile(f'{base_path}/{import_from}/{module_name}/{file_name}')
     list = ""
 

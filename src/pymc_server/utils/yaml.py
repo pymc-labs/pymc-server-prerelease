@@ -119,7 +119,6 @@ def get_pymc_config_yaml(module_name, import_from="config", file_name="base.yaml
     """
     #assert module_name == 'pymc-marketing', 'Not Implemented: the only supported module is pymc-marketing'
     base_path = os.path.dirname(os.path.abspath(pymc_server.__file__))
-    print(f"base_path::{base_path}")
     file_exists = os.path.isfile(f'{base_path}/{import_from}/{module_name}/{file_name}')
     list = ""
 
@@ -150,7 +149,7 @@ def exists(path):
                        f'{colorama.Fore.YELLOW}{path}{colorama.Style.RESET_ALL}')
 
 def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],base_config_path:Optional[str]):
-
+    print(f'{colorama.Fore.YELLOW}NEW VERSION: ')
     user_file = entrypoint
     base_file = None
     module_config_path =None
@@ -170,6 +169,7 @@ def get_config_from_yaml(entrypoint: Tuple[str, ...],module_name:Optional[str],b
 
 
     if module_config_path is None:
+        print("get Base file")
         base_file = get_pymc_config_yaml(current_module if current_module is not None else "pymc-marketing")
         exists(base_file)
         module_config_path = base_file

@@ -405,7 +405,8 @@ def launch_2(
             f'{colorama.Style.RESET_ALL}{colorama.Style.BRIGHT}pymcs serve up'
             f'{colorama.Style.RESET_ALL}')
 
-    cluster_name = generate_cluster_name()
+    cluster_name = generate_cluster_name(cluster)
+    #print(f'{colorama.Fore.YELLOW}new clustername: {cluster_name}')
 
     _launch_with_confirm(task,
                          backend,
@@ -424,6 +425,7 @@ def launch_2(
                 f'{colorama.Style.RESET_ALL}{cluster_name}')
 
 
+    return cluster_name
 
 
 

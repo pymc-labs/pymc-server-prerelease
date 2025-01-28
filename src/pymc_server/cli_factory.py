@@ -300,7 +300,6 @@ def setup_start_factory(func):
     ]
     for option in reversed(options):
         func = option(func)
-    print("func",func)
     return func
 
 
@@ -327,5 +326,4 @@ def setup_stop_factory(func):
     ]
     for option in reversed(options):
         func = option(func)
-    print("func",func)
     return func

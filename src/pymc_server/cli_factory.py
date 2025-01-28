@@ -188,3 +188,144 @@ def setup_launch_factory(func):
     for option in reversed(options):
         func = option(func)
     return func
+
+def setup_exec_factory(func):
+    options = [
+        #cli.command(cls=_DocumentedCodeCommand),
+        click.command(cls=_DocumentedCodeCommand),
+
+        click.argument('cluster',
+                        required=False,
+                        type=str,
+                        **_get_shell_complete_args(_complete_cluster_name)),
+        click.option(
+            '--cluster',
+            '-c',
+            'cluster_option',
+            hidden=True,
+            type=str,
+            help='This is the same as the positional argument, just for consistency.',
+            **_get_shell_complete_args(_complete_cluster_name)),
+        click.argument('entrypoint',
+                        required=False,
+                        type=str,
+                        nargs=-1,
+                        **_get_shell_complete_args(_complete_file_name)),
+        click.option(
+            '--detach-run',
+            '-d',
+            default=False,
+            is_flag=True,
+            help=('If True, as soon as a job is submitted, return from this call '
+                  'and do not stream execution logs.')),
+        _add_click_options(_TASK_OPTIONS_WITH_NAME + _EXTRA_RESOURCES_OPTIONS),
+        usage_lib.entrypoint
+    ]
+
+
+def setup_start_factory(func):
+    '''
+    clusters: List[str],
+            all: bool,
+            yes: bool,
+            idle_minutes_to_autostop: Optional[int],
+            down: bool,  # pylint: disable=redefined-outer-name
+            retry_until_up: bool,
+            force: bool):
+    '''
+
+    options = [
+        click.command(cls=_DocumentedCodeCommand),
+        click.argument('clusters',
+                        nargs=-1,
+                        required=False,
+                        **_get_shell_complete_args(_complete_cluster_name)),
+        click.option('--all',
+                      '-a',
+                      default=False,
+                      is_flag=True,
+                      required=False,
+                      help='Start all existing clusters.'),
+        click.option('--yes',
+                      '-y',
+                      is_flag=True,
+                      default=False,
+                      required=False,
+                      help='Skip confirmation prompt.'),
+        click.option(
+            '--idle-minutes-to-autostop',
+            '-i',
+            default=None,
+            type=int,
+            required=False,
+            help=('Automatically stop the cluster after this many minutes '
+                  'of idleness, i.e., no running or pending jobs in the cluster\'s job '
+                  'queue. Idleness gets reset whenever setting-up/running/pending jobs '
+                  'are found in the job queue. '
+                  'Setting this flag is equivalent to '
+                  'running ``sky launch -d ...`` and then ``sky autostop -i <minutes>``'
+                  '. If not set, the cluster will not be autostopped.')),
+        click.option(
+            '--down',
+            default=False,
+            is_flag=True,
+            required=False,
+            help=
+            ('Autodown the cluster: tear down the cluster after specified minutes of '
+             'idle time after all jobs finish (successfully or abnormally). Requires '
+             '--idle-minutes-to-autostop to be set.'),
+        ),
+        click.option(
+            '--retry-until-up',
+            '-r',
+            default=False,
+            is_flag=True,
+            required=False,
+            # Disabling quote check here, as there seems to be a bug in pylint,
+            # which incorrectly recognizes the help string as a docstring.
+            # pylint: disable=bad-docstring-quotes
+            help=('Retry provisioning infinitely until the cluster is up, '
+                  'if we fail to start the cluster due to unavailability errors.'),
+        ),
+        click.option(
+            '--force',
+            '-f',
+            default=False,
+            is_flag=True,
+            required=False,
+            help=('Force start the cluster even if it is already UP. Useful for '
+                  'upgrading the SkyPilot runtime on the cluster.')),
+
+        usage_lib.entrypoint
+    ]
+    for option in reversed(options):
+        func = option(func)
+    print("func",func)
+    return func
+
+
+def setup_stop_factory(func):
+    options = [
+
+        click.command(cls=_DocumentedCodeCommand),
+        click.argument('clusters',
+                        nargs=-1,
+                        required=False,
+                        **_get_shell_complete_args(_complete_cluster_name)),
+        click.option('--all',
+                      '-a',
+                      default=None,
+                      is_flag=True,
+                      help='Stop all existing clusters.'),
+        click.option('--yes',
+                      '-y',
+                      is_flag=True,
+                      default=False,
+                      required=False,
+                      help='Skip confirmation prompt.')
+
+    ]
+    for option in reversed(options):
+        func = option(func)
+    print("func",func)
+    return func

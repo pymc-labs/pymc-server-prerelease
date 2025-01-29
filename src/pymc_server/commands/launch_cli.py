@@ -98,13 +98,10 @@ def launch(
         ports=ports,
     )
     """ set auto stop/down from config """
-
-
-
-
     auto_idle_minutes,auto_down = get_auto_stop(entrypoint,module_name,base_config_folder)
-
-
+    idle_minutes_to_autostop = idle_minutes_to_autostop if idle_minutes_to_autostop != None else auto_idle_minutes_to_autostop
+    down = down if down != None else auto_down
+    down = False if down == None else down
     if isinstance(task_or_dag, sky.Dag):
         raise click.UsageError(
             _DAG_NOT_SUPPORTED_MESSAGE.format(command='pymcs launch'))

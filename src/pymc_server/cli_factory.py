@@ -240,6 +240,12 @@ def setup_start_factory(func):
                         nargs=-1,
                         required=False,
                         **_get_shell_complete_args(_complete_cluster_name)),
+        click.option('--entrypoint',
+                      '-e',
+                      default=None,
+                      type=str,
+                      required=False,
+                      **_get_shell_complete_args(_complete_file_name)),
         click.option('--all',
                       '-a',
                       default=False,
@@ -267,7 +273,7 @@ def setup_start_factory(func):
                   '. If not set, the cluster will not be autostopped.')),
         click.option(
             '--down',
-            default=False,
+            default=None,
             is_flag=True,
             required=False,
             help=

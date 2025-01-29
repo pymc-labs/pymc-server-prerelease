@@ -7,6 +7,7 @@ from pymc_server.commands.down_cli import (down as down_cli, setup_down_factory 
 from pymc_server.commands.launch_cli import launch as launch_cli
 from pymc_server.commands.exec_cli import exec as exec_cli
 from pymc_server.commands.status_cli import status as status_cli
+from pymc_server.commands.start_cli import start as start_cli
 
 from pymc_server.cli_factory import setup_launch_factory, setup_status_factory, setup_exec_factory, setup_start_factory,setup_stop_factory
 from sky.usage import usage_lib
@@ -79,7 +80,7 @@ def check(*args, **kwargs):
 def start(*args, **kwargs):
     ctx = click.get_current_context()
     #sky_check(*args, **kwargs)
-    ctx.invoke(sky_start, *args, **kwargs)
+    ctx.invoke(start_cli, *args, **kwargs)
     """Deletes a local cluster."""
 
 @setup_stop_factory

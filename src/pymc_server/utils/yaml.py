@@ -313,14 +313,26 @@ def _make_task_or_dag_from_entrypoint_with_overrides(
 
     return task
 
+
+def _get_auto_stop_from_yaml(configs):
+    try:
+            autostop = configs["resources"]['autostop'] if 'autostop' in configs["resources"] else None
+            idle_minutes = configs["resources"]['autostop']['idle_minutes'] if 'idle_minutes' in autostop else None
+            down = configs["resources"]['autostop']['down'] if 'down' in autostop else None
+            return idle_minutes, down
+    except: return None, None
+
+
+def get_auto_stop_from_entrypoint(entrypoint):
+    if entrypoint != ():
+       exists(entrypoint)
+    else: return None, None
+    userYaml =  hiyapyco.load(entrypoint, entrypoint, method=hiyapyco.METHOD_MERGE)
+    return _get_auto_stop_from_yaml(userYaml)
+
 def get_auto_stop(entrypoint: Tuple[str, ...],module_name:Optional[str],base_config_path:Optional[str]):
     configs, is_yaml,module_config_path = get_config_from_yaml(entrypoint,module_name,base_config_path)
-    try:
-        autostop = configs[0]["resources"]['autostop'] if 'autostop' in configs[0]["resources"] else None
-        idle_minutes = configs[0]["resources"]['autostop']['idle_minutes'] if 'idle_minutes' in autostop else None
-        down = configs[0]["resources"]['autostop']['down'] if 'down' in autostop else None
-        return idle_minutes, down
-    except: return None, None
+    return _get_auto_stop_from_yaml(configs[0])
 
 
 def clean_up_config(config):

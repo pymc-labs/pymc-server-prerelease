@@ -225,16 +225,14 @@ def _make_task_or_dag_from_entrypoint_with_overrides(
     #entrypoint = ' '.join(entrypoint)
 
     configs, is_yaml,module_config_path = get_config_from_yaml(entrypoint,module_name,base_config_folder)
-
     clean_up_config(configs)
 
-    print(f'{colorama.Fore.YELLOW} ERRRRROOOOORRR HERE')
-
+    '''
     click.secho(f'{colorama.Fore.GREEN}used base_config_folder:'
                 f'{colorama.Style.RESET_ALL}{base_config_folder}')
     click.secho(f'{colorama.Fore.GREEN}used entrypoint:'
                 f'{colorama.Style.RESET_ALL}{entrypoint}')
-
+    '''
     #is_yaml, _ = _check_yaml(entrypoint)
     entrypoint: Optional[str]
     if is_yaml:

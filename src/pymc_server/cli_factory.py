@@ -174,7 +174,7 @@ def setup_launch_factory(func):
                   'the same data on the boot disk as an existing cluster.')),
         click.option(
             '--down',
-            default=False,
+            default=None,
             is_flag=True,
             required=False,
             help=
@@ -224,16 +224,6 @@ def setup_exec_factory(func):
 
 
 def setup_start_factory(func):
-    '''
-    clusters: List[str],
-            all: bool,
-            yes: bool,
-            idle_minutes_to_autostop: Optional[int],
-            down: bool,  # pylint: disable=redefined-outer-name
-            retry_until_up: bool,
-            force: bool):
-    '''
-
     options = [
         click.command(cls=_DocumentedCodeCommand),
         click.argument('clusters',

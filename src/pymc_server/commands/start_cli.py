@@ -28,10 +28,7 @@ def start(
     if entrypoint != None:
         auto_idle_minutes_to_autostop, auto_down = get_auto_stop_from_entrypoint(entrypoint)
         idle_minutes_to_autostop = idle_minutes_to_autostop if idle_minutes_to_autostop != None else auto_idle_minutes_to_autostop
-        print(f"{colorama.Fore.CYAN} autostop: {colorama.Fore.YELLOW} {auto_idle_minutes_to_autostop} {auto_down}{colorama.Style.RESET_ALL}")
-
         down = down if down != None else auto_down
-
     down = False if down == None else down
 
     # NOTE(dev): Keep the docstring consistent between the Python API and CLI.

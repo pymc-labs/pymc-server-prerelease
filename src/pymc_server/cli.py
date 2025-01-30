@@ -39,7 +39,7 @@ def status(*args, **kwargs):
     #ctx.invoke(sky_status, *args, **kwargs)
 
 
-@setup_launch_factory
+@setup_exec_factory
 @usage_lib.entrypoint
 def exec(*args, **kwargs):
     """ calls the sky status command by passing the click context"""

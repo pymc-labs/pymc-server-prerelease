@@ -3,11 +3,23 @@ import sky
 import pymc_server
 import colorama
 from typing import  Dict, List, Optional, Tuple, Union
+from pymc_server.utils.yaml import (
+    get_config_from_yaml, load_chain_dag_from_yaml,
+    _make_task_or_dag_from_entrypoint_with_overrides,
+    get_auto_stop
+
+)
+from sky.utils import controller_utils
+from sky.backends import backend_utils
+from sky.cli import _parse_override_params, _merge_env_vars, _pop_and_ignore_fields_in_override_params
+from sky import global_user_state
 
 def exec(
     cluster: Optional[str],
     cluster_option: Optional[str],
     entrypoint: Tuple[str, ...],
+    module_name:Optional[str],
+    base_config_folder:Optional[str],
     detach_run: bool,
     name: Optional[str],
     cloud: Optional[str],
@@ -107,6 +119,8 @@ def exec(
 
     task_or_dag = _make_task_or_dag_from_entrypoint_with_overrides(
         entrypoint=entrypoint,
+        module_name=module_name,
+        base_config_folder=base_config_folder,
         name=name,
         workdir=workdir,
         cloud=cloud,

@@ -211,6 +211,18 @@ def setup_exec_factory(func):
                         type=str,
                         nargs=-1,
                         **_get_shell_complete_args(_complete_file_name)),
+        click.option('--module-name',
+                              '-m',
+                              #default='pymc-marketing',
+                              required=False,
+                              type=str,
+                              help=('Define the PyMC module / project you need tu use. '
+                                    'pymc-marketing is default.')),
+        click.option('--base-config-folder',
+            '-b',
+            required=False,
+            type=str,
+            help=('define config base Folder')),
         click.option(
             '--detach-run',
             '-d',
@@ -221,7 +233,9 @@ def setup_exec_factory(func):
         _add_click_options(_TASK_OPTIONS_WITH_NAME + _EXTRA_RESOURCES_OPTIONS),
         usage_lib.entrypoint
     ]
-
+    for option in reversed(options):
+        func = option(func)
+    return func
 
 def setup_start_factory(func):
     options = [

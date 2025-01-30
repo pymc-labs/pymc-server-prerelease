@@ -148,7 +148,6 @@ def launch(
     #handle = cluster_records[0]['handle']
     #head_ip = handle.external_ips()[0]
 
-
     return cluster_name
 
 

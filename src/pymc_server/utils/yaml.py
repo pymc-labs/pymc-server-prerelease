@@ -11,7 +11,7 @@ import pymc_server
 import sky
 
 from sky import clouds as sky_clouds
-from sky.cli import _parse_override_params
+from sky.cli import _parse_override_params, _pop_and_ignore_fields_in_override_params
 from sky.usage import usage_lib
 
 from .names import generate_cluster_name

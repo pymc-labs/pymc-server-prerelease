@@ -15,10 +15,11 @@ classifiers = [
 ]
 dependencies = [
     "Click",
-    "ray[default]"
+    "ray[default]",
+    "skypilot==0.7.0"
 ]
 [dependencies]
-skypilot = "0.7.0"
+#skypilot = "0.7.0"
 hiyapyco= ">=0.6.1,<1"
 
 

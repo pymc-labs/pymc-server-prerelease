@@ -28,7 +28,6 @@ def status(*args, **kwargs):
     """ calls the sky status command by passing the click context"""
     ctx = click.get_current_context()
     #ctx.invoke(_status_test, *args, **kwargs)
-    print("*args",*args)
     data = ctx.invoke(sky_status, *args, **kwargs)
     #print("DATA",data)
 

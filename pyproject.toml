@@ -13,7 +13,14 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-dependencies = ["Click"]
+dependencies = [
+    "Click",
+]
+[dependencies]
+skypilot = "0.7.0"
+hiyapyco= ">=0.6.1,<1"
+ray= '[default]'
+
 
 [project.scripts]
 pymcs = "pymc_server.cli:cli"
@@ -52,7 +59,7 @@ xarray = ">=2024.9.0,<2025"
 zarr = ">=2.18.3,<3"
 
 [tool.pixi.feature.client.pypi-dependencies]
-skypilot = {version = ">=0.6.1,<1", extras = ["gcp", "kubernetes"] }
+#skypilot = {version = ">=0.6.1,<1", extras = ["gcp", "kubernetes"] }
 pymc-server = { path = "./", editable = true }
 # TODO: add pymc server
 hiyapyco={version=">=0.6.1,<1"}

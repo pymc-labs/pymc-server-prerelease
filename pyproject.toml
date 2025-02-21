@@ -21,7 +21,7 @@ dependencies = [
 ]
 [dependencies]
 #skypilot = "0.7.0"
-hiyapyco= ">=0.6.1,<1"
+#hiyapyco= ">=0.6.1,<1"
 
 
 [project.scripts]

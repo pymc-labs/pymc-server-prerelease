@@ -138,24 +138,17 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b3/61/39e7db0cb326c9c8f6a49fad4fc9c2f1241f05a4e10f0643fc31ce26a7e0/colorful-0.5.6-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/91/a1/cf2472db20f7ce4a6be1253a81cfdf85ad9c7885ffbed7047fb72c24cf87/distlib-0.3.9-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/4c/a3/ac312faeceffd2d8f86bc6dcb5c401188ba5a01bc88e69bed97578a0dfcd/durationpy-0.9-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b9/f8/feced7779d755758a52d1f6635d990b8d98dc0a29fa568bbe0625f18fdf3/filelock-3.16.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0b/f2/b8158a0f06faefec33f4dff6345a575c18095a44e52d4f10c678c137d0e0/frozenlist-1.4.1-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/a0/6aaea0c2fbea2f89bfd5db25fb1e3481896a423002ebe4e55288907a97a3/fsspec-2024.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6a/ef/79fa8388c95edbd8fe36c763259dade36e5cb562dcf3e85c0e32070dc9b0/google_api_core-2.21.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/e1/33/b2fa6a8d7ca786c07ab4ab671aaa8dd5abb32893636fc44f684c396470cc/google_api_python_client-2.149.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/1f/3a72917afcb0d5cd842cbccb81bf7a8a7b45b4c66d8dc4556ccb3b016bfc/google_auth-2.35.0-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/be/8a/fe34d2f3f9470a27b01c9e76226965863f153d5fbe276f83608562e49c04/google_auth_httplib2-0.2.0-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/5e/0f/2e2061e3fbcb9d535d5da3f58cc8de4947df1786fe6a1355960feb05a681/google_cloud_core-2.4.1-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/c4/ed/dc78ac4426e1135f06331663198e3b75a4699068bd601bb3f15534c77147/google_cloud_storage-0.21.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ec/08/49bfe7cf737952cc1a9c43e80cc258ed45dad7f183c5b8276fc94cb3862d/googleapis_common_protos-1.65.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/02/c09b37bb1dc1958a071a9aba5315a3c906293a53001ad0e9d63b6f7be120/HiYaPyCo-0.6.1-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/a8/6c/d2fbdaaa5959339d53ba38e94c123e4e84b8fbc4b84beb0e70d7c1608486/httplib2-0.22.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/80/3a54838c3fb461f6fec263ebf3a3a41771bd05190238de3486aae8540c36/jinja2-3.1.4-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/4a/4f9dbeb84e8850557c02365a0eee0649abe5eb1d84af92a25731c6c0f922/jsonschema-4.23.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d1/0f/8910b19ac0670a0f80ce1008e5e751c4a57e14d2c4c13a482aa6079fa9d6/jsonschema_specifications-2024.10.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/fb/a8/17f5e28cecdbd6d48127c22abdb794740803491f422a11905c4569d8e139/kubernetes-31.0.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/04/1e/b832de447dee8b582cac175871d2f6c3d5077cc56d5575cadba1fd1cccfa/linkify_it_py-2.0.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/42/d7/1ec15b46af6af88f19b8e5ffea08fa375d433c998b8a7639e76935c14f1f/markdown_it_py-3.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0a/0d/2454f072fae3b5a137c119abf15465d1771319dfe9e4acbb31722a0fff91/MarkupSafe-2.1.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
@@ -163,44 +156,30 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/8a/b0/0f10448116f95ac8747cef1556872f2874cbb2b199f19ccb7a6ab64b6647/memray-1.14.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/d3/c8/529101d7176fe7dfe1d99604e48d69c5dfdcadb4f06561f465c8ef12b4df/multidict-6.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/8b/4e/bf7a4ccc11ded738efd0bda39296c7cee3617e800f890f919de5c0fe00c8/networkx-3.4.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7e/80/cab10959dc1faead58dc8384a781dfbf93cb4d33d50988f7a69f1b7c9bbe/oauthlib-3.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b5/ed/9fbdeb23a09e430d87b7d72d430484b88184633dc50f6bfb792354b6f661/opencensus-0.11.4-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/10/68/162c97ea78c957d68ecf78a5c5041d2e25bd5562bdf5d89a6cbf7f8429bf/opencensus_context-0.1.3-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/72/6a/68a8c7b8f1977d89aabfd0e2becb0921e5515dfb365097e98a522334a151/pendulum-3.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/3c/a6/bc1012356d8ece4d66dd75c4b9fc6c1f6650ddd5991e421177d9f8f671be/platformdirs-4.3.6-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/d9/5a/bfdc26c0e19156992b1dc9de47f0b2e8992fe43db9981d814f860bdce2b3/prettytable-3.11.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/84/2d/46ed6436849c2c88228c3111865f44311cff784b4aabcdef4ea2545dbc3d/prometheus_client-0.21.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3c/e9/1b54b7e26f50b3e0497cd13d3483d781d284452c2c50dd2a615a92a087a3/propcache-0.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/7c/6f/db31f0711c0402aa477257205ce7d29e86a75cb52cd19f7afb585f75cda0/proto_plus-1.24.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/08/a1ce0415a115c2b703bfa798f06f0e43ca91dbe29d6180bf86a9287b15e2/protobuf-5.28.2-cp38-abi3-manylinux2014_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/19/74/f59e7e0d392bc1070e9a70e2f9190d652487ac115bb16e2eff6b22ad1d24/psutil-6.0.0-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/64/10/704c18b5960b3f9b10efcc859e11881ad90f1e44008e181d2b10cd305a63/PuLP-2.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c2/d2/082de8db2285a652a00a39f2bcffaaf0b0c9c378f4830bb5983d2600b2dd/py_spy-0.3.14-py2.py3-none-manylinux_2_5_x86_64.manylinux1_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/c8/f1/d6a797abb14f6283c0ddff96bbdd46937f64122b8c925cab503dd37f8214/pyasn1-0.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/77/89/bc88a6711935ba795a679ea6ebee07e128050d6382eaa35a0a47c8032bdc/pyasn1_modules-0.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/f7/3f/01c8b82017c199075f8f788d0d906b9ffbbc5a47dc9918a945e13d5a2bda/pygments-2.18.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/6a/3e/b68c118422ec867fa7ab88444e1274aa40681c606d59ac27de5a5588f082/python_dotenv-1.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b9/2b/614b4752f2e127db5cc206abc23a8c19678e92b23c3db30fc86ab731d3bd/PyYAML-6.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/aa/11/b573b388bcdbd460d55bf5f17043ec5519c4758888116f20693003bc7141/ray-2.37.0-cp312-cp312-manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/b7/59/2056f61236782a2c86b33906c025d4f4a0b17be0161b63b70fd9e8775d36/referencing-0.35.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/3b/5d/63d4ae3b9daea098d5d6f5da83984853c1bbacd5dc826764b249fe119d24/requests_oauthlib-2.0.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/67/91/5474b84e505a6ccc295b2d322d90ff6aa0746745717839ee0c5fb4fdcceb/rich-13.9.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/f7/a59a673594e6c2ff2dbc44b00fd4ecdec2fc399bb6a7bd82d612699a0121/rpds_py-0.20.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/49/97/fa78e3d2f65c02c8e1268b9aba606569fe97f6c8f7c2d74394553347c145/rsa-4.9-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d7/af/add60ba3a0bb78d900f6d9365000c1b0e06c97284154e20f0bda02dbb717/s3fs-2024.9.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/bb/43/52db430f377dd15307e115decad1f8754223d7dd84be71e4ccee9b4ec824/skypilot-0.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/06/bc/706838af28a542458bffe74a5d0772ca7f207b5495cd9fccfce61ef71f2a/smart_open-7.0.5-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/40/44/4a5f08c96eb108af5cb50b41f76142f0afa346dfa99d5296fe7202a11854/tabulate-0.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/18/39/6cec279ca41dcacb1c92ad6e4467c9e88db4eb4d2f02300c66218ec432de/textual-0.83.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/a1/cb/93bc0e51bea4e171a85151dbba3c3b3f612b50b953cd3076f5b4f0db9e14/time_machine-2.16.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/37/87/1f677586e8ac487e29672e4b17455758fce261de06a0d086167bb760361a/uc_micro_py-1.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/81/c0/7461b49cd25aeece13766f02ee576d1db528f1c37ce69aee300e075b485b/uritemplate-4.1.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ce/d9/5f4c13cecde62396b0d3fe530a50ccea91e7dfc1ccf0e09c228841bb5ba8/urllib3-2.2.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/59/90/57b8ac0c8a231545adc7698c64c5a36fa7cd8e376c691b9bde877269f2eb/virtualenv-20.26.6-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/fd/84/fd2ba7aafacbad3c4201d395674fc6348826569da3c0937e75505ead3528/wcwidth-0.2.13-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/5a/84/44687a29792a70e111c5c477230a72c4b957d88d16141199bf9acb7537a3/websocket_client-1.8.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/62/62/30ca2405de6a20448ee557ab2cd61ab9c5900be7cbd18a2639db595f0b98/wrapt-1.16.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/10/77/1db077601998e0831a540a690dcb0f450c31f64c492e993e2eaadfbc7d31/yarl-1.15.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: ./
@@ -342,24 +321,17 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b3/61/39e7db0cb326c9c8f6a49fad4fc9c2f1241f05a4e10f0643fc31ce26a7e0/colorful-0.5.6-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/91/a1/cf2472db20f7ce4a6be1253a81cfdf85ad9c7885ffbed7047fb72c24cf87/distlib-0.3.9-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/4c/a3/ac312faeceffd2d8f86bc6dcb5c401188ba5a01bc88e69bed97578a0dfcd/durationpy-0.9-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b9/f8/feced7779d755758a52d1f6635d990b8d98dc0a29fa568bbe0625f18fdf3/filelock-3.16.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0b/f2/b8158a0f06faefec33f4dff6345a575c18095a44e52d4f10c678c137d0e0/frozenlist-1.4.1-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/1d/a0/6aaea0c2fbea2f89bfd5db25fb1e3481896a423002ebe4e55288907a97a3/fsspec-2024.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6a/ef/79fa8388c95edbd8fe36c763259dade36e5cb562dcf3e85c0e32070dc9b0/google_api_core-2.21.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/e1/33/b2fa6a8d7ca786c07ab4ab671aaa8dd5abb32893636fc44f684c396470cc/google_api_python_client-2.149.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/27/1f/3a72917afcb0d5cd842cbccb81bf7a8a7b45b4c66d8dc4556ccb3b016bfc/google_auth-2.35.0-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/be/8a/fe34d2f3f9470a27b01c9e76226965863f153d5fbe276f83608562e49c04/google_auth_httplib2-0.2.0-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/5e/0f/2e2061e3fbcb9d535d5da3f58cc8de4947df1786fe6a1355960feb05a681/google_cloud_core-2.4.1-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/c4/ed/dc78ac4426e1135f06331663198e3b75a4699068bd601bb3f15534c77147/google_cloud_storage-0.21.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ec/08/49bfe7cf737952cc1a9c43e80cc258ed45dad7f183c5b8276fc94cb3862d/googleapis_common_protos-1.65.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/16/02/c09b37bb1dc1958a071a9aba5315a3c906293a53001ad0e9d63b6f7be120/HiYaPyCo-0.6.1-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/a8/6c/d2fbdaaa5959339d53ba38e94c123e4e84b8fbc4b84beb0e70d7c1608486/httplib2-0.22.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/80/3a54838c3fb461f6fec263ebf3a3a41771bd05190238de3486aae8540c36/jinja2-3.1.4-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/4a/4f9dbeb84e8850557c02365a0eee0649abe5eb1d84af92a25731c6c0f922/jsonschema-4.23.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d1/0f/8910b19ac0670a0f80ce1008e5e751c4a57e14d2c4c13a482aa6079fa9d6/jsonschema_specifications-2024.10.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/fb/a8/17f5e28cecdbd6d48127c22abdb794740803491f422a11905c4569d8e139/kubernetes-31.0.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/04/1e/b832de447dee8b582cac175871d2f6c3d5077cc56d5575cadba1fd1cccfa/linkify_it_py-2.0.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/42/d7/1ec15b46af6af88f19b8e5ffea08fa375d433c998b8a7639e76935c14f1f/markdown_it_py-3.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0a/0d/2454f072fae3b5a137c119abf15465d1771319dfe9e4acbb31722a0fff91/MarkupSafe-2.1.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
@@ -367,44 +339,30 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/8a/b0/0f10448116f95ac8747cef1556872f2874cbb2b199f19ccb7a6ab64b6647/memray-1.14.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/d3/c8/529101d7176fe7dfe1d99604e48d69c5dfdcadb4f06561f465c8ef12b4df/multidict-6.1.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/8b/4e/bf7a4ccc11ded738efd0bda39296c7cee3617e800f890f919de5c0fe00c8/networkx-3.4.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7e/80/cab10959dc1faead58dc8384a781dfbf93cb4d33d50988f7a69f1b7c9bbe/oauthlib-3.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b5/ed/9fbdeb23a09e430d87b7d72d430484b88184633dc50f6bfb792354b6f661/opencensus-0.11.4-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/10/68/162c97ea78c957d68ecf78a5c5041d2e25bd5562bdf5d89a6cbf7f8429bf/opencensus_context-0.1.3-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/72/6a/68a8c7b8f1977d89aabfd0e2becb0921e5515dfb365097e98a522334a151/pendulum-3.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/3c/a6/bc1012356d8ece4d66dd75c4b9fc6c1f6650ddd5991e421177d9f8f671be/platformdirs-4.3.6-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/d9/5a/bfdc26c0e19156992b1dc9de47f0b2e8992fe43db9981d814f860bdce2b3/prettytable-3.11.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/84/2d/46ed6436849c2c88228c3111865f44311cff784b4aabcdef4ea2545dbc3d/prometheus_client-0.21.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3c/e9/1b54b7e26f50b3e0497cd13d3483d781d284452c2c50dd2a615a92a087a3/propcache-0.2.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/7c/6f/db31f0711c0402aa477257205ce7d29e86a75cb52cd19f7afb585f75cda0/proto_plus-1.24.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/23/08/a1ce0415a115c2b703bfa798f06f0e43ca91dbe29d6180bf86a9287b15e2/protobuf-5.28.2-cp38-abi3-manylinux2014_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/19/74/f59e7e0d392bc1070e9a70e2f9190d652487ac115bb16e2eff6b22ad1d24/psutil-6.0.0-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/64/10/704c18b5960b3f9b10efcc859e11881ad90f1e44008e181d2b10cd305a63/PuLP-2.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c2/d2/082de8db2285a652a00a39f2bcffaaf0b0c9c378f4830bb5983d2600b2dd/py_spy-0.3.14-py2.py3-none-manylinux_2_5_x86_64.manylinux1_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/c8/f1/d6a797abb14f6283c0ddff96bbdd46937f64122b8c925cab503dd37f8214/pyasn1-0.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/77/89/bc88a6711935ba795a679ea6ebee07e128050d6382eaa35a0a47c8032bdc/pyasn1_modules-0.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/f7/3f/01c8b82017c199075f8f788d0d906b9ffbbc5a47dc9918a945e13d5a2bda/pygments-2.18.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/6a/3e/b68c118422ec867fa7ab88444e1274aa40681c606d59ac27de5a5588f082/python_dotenv-1.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b9/2b/614b4752f2e127db5cc206abc23a8c19678e92b23c3db30fc86ab731d3bd/PyYAML-6.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/aa/11/b573b388bcdbd460d55bf5f17043ec5519c4758888116f20693003bc7141/ray-2.37.0-cp312-cp312-manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/b7/59/2056f61236782a2c86b33906c025d4f4a0b17be0161b63b70fd9e8775d36/referencing-0.35.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/3b/5d/63d4ae3b9daea098d5d6f5da83984853c1bbacd5dc826764b249fe119d24/requests_oauthlib-2.0.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/67/91/5474b84e505a6ccc295b2d322d90ff6aa0746745717839ee0c5fb4fdcceb/rich-13.9.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0f/f7/a59a673594e6c2ff2dbc44b00fd4ecdec2fc399bb6a7bd82d612699a0121/rpds_py-0.20.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/49/97/fa78e3d2f65c02c8e1268b9aba606569fe97f6c8f7c2d74394553347c145/rsa-4.9-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d7/af/add60ba3a0bb78d900f6d9365000c1b0e06c97284154e20f0bda02dbb717/s3fs-2024.9.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/bb/43/52db430f377dd15307e115decad1f8754223d7dd84be71e4ccee9b4ec824/skypilot-0.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/06/bc/706838af28a542458bffe74a5d0772ca7f207b5495cd9fccfce61ef71f2a/smart_open-7.0.5-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/40/44/4a5f08c96eb108af5cb50b41f76142f0afa346dfa99d5296fe7202a11854/tabulate-0.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/18/39/6cec279ca41dcacb1c92ad6e4467c9e88db4eb4d2f02300c66218ec432de/textual-0.83.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/a1/cb/93bc0e51bea4e171a85151dbba3c3b3f612b50b953cd3076f5b4f0db9e14/time_machine-2.16.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/37/87/1f677586e8ac487e29672e4b17455758fce261de06a0d086167bb760361a/uc_micro_py-1.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/81/c0/7461b49cd25aeece13766f02ee576d1db528f1c37ce69aee300e075b485b/uritemplate-4.1.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ce/d9/5f4c13cecde62396b0d3fe530a50ccea91e7dfc1ccf0e09c228841bb5ba8/urllib3-2.2.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/59/90/57b8ac0c8a231545adc7698c64c5a36fa7cd8e376c691b9bde877269f2eb/virtualenv-20.26.6-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/fd/84/fd2ba7aafacbad3c4201d395674fc6348826569da3c0937e75505ead3528/wcwidth-0.2.13-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/5a/84/44687a29792a70e111c5c477230a72c4b957d88d16141199bf9acb7537a3/websocket_client-1.8.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/62/62/30ca2405de6a20448ee557ab2cd61ab9c5900be7cbd18a2639db595f0b98/wrapt-1.16.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/10/77/1db077601998e0831a540a690dcb0f450c31f64c492e993e2eaadfbc7d31/yarl-1.15.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: ./
@@ -1487,11 +1445,6 @@ packages:
   size: 42039
   timestamp: 1704321683916
 - kind: pypi
-  name: durationpy
-  version: '0.9'
-  url: https://files.pythonhosted.org/packages/4c/a3/ac312faeceffd2d8f86bc6dcb5c401188ba5a01bc88e69bed97578a0dfcd/durationpy-0.9-py3-none-any.whl
-  sha256: e65359a7af5cedad07fb77a2dd3f390f8eb0b74cb845589fa6c057086834dd38
-- kind: pypi
   name: etuples
   version: 0.3.9
   url: https://files.pythonhosted.org/packages/22/60/134940a09d03786ad7267e53458a749e2f4bfaf1efd672363e87a4a13561/etuples-0.3.9.tar.gz
@@ -1812,18 +1765,6 @@ packages:
   - grpcio-gcp<1.0.dev0,>=0.2.2 ; extra == 'grpcio-gcp'
   requires_python: '>=3.7'
 - kind: pypi
-  name: google-api-python-client
-  version: 2.149.0
-  url: https://files.pythonhosted.org/packages/e1/33/b2fa6a8d7ca786c07ab4ab671aaa8dd5abb32893636fc44f684c396470cc/google_api_python_client-2.149.0-py2.py3-none-any.whl
-  sha256: 1a5232e9cfed8c201799d9327e4d44dc7ea7daa3c6e1627fca41aa201539c0da
-  requires_dist:
-  - httplib2<1.dev0,>=0.19.0
-  - google-auth!=2.24.0,!=2.25.0,<3.0.0.dev0,>=1.32.0
-  - google-auth-httplib2<1.0.0,>=0.2.0
-  - google-api-core!=2.0.*,!=2.1.*,!=2.2.*,!=2.3.0,<3.0.0.dev0,>=1.31.5
-  - uritemplate<5,>=3.0.1
-  requires_python: '>=3.7'
-- kind: pypi
   name: google-auth
   version: 2.35.0
   url: https://files.pythonhosted.org/packages/27/1f/3a72917afcb0d5cd842cbccb81bf7a8a7b45b4c66d8dc4556ccb3b016bfc/google_auth-2.35.0-py2.py3-none-any.whl
@@ -1840,26 +1781,6 @@ packages:
   - cryptography>=38.0.3 ; extra == 'pyopenssl'
   - pyu2f>=0.1.5 ; extra == 'reauth'
   - requests<3.0.0.dev0,>=2.20.0 ; extra == 'requests'
-  requires_python: '>=3.7'
-- kind: pypi
-  name: google-auth-httplib2
-  version: 0.2.0
-  url: https://files.pythonhosted.org/packages/be/8a/fe34d2f3f9470a27b01c9e76226965863f153d5fbe276f83608562e49c04/google_auth_httplib2-0.2.0-py2.py3-none-any.whl
-  sha256: b65a0a2123300dd71281a7bf6e64d65a0759287df52729bdd1ae2e47dc311a3d
-  requires_dist:
-  - google-auth
-  - httplib2>=0.19.0
-- kind: pypi
-  name: google-cloud-core
-  version: 2.4.1
-  url: https://files.pythonhosted.org/packages/5e/0f/2e2061e3fbcb9d535d5da3f58cc8de4947df1786fe6a1355960feb05a681/google_cloud_core-2.4.1-py2.py3-none-any.whl
-  sha256: a9e6a4422b9ac5c29f79a0ede9485473338e2ce78d91f2370c01e730eab22e61
-  requires_dist:
-  - google-api-core!=2.0.*,!=2.1.*,!=2.2.*,!=2.3.0,<3.0.0.dev0,>=1.31.6
-  - google-auth<3.0.dev0,>=1.25.0
-  - importlib-metadata>1.0.0 ; python_full_version < '3.8'
-  - grpcio<2.0.dev0,>=1.38.0 ; extra == 'grpc'
-  - grpcio-status<2.0.dev0,>=1.38.0 ; extra == 'grpc'
   requires_python: '>=3.7'
 - kind: conda
   name: google-cloud-sdk
@@ -1887,13 +1808,6 @@ packages:
   - pkg:pypi/wheel?source=hash-mapping
   size: 152087453
   timestamp: 1728423272709
-- kind: pypi
-  name: google-cloud-storage
-  version: 0.21.0
-  url: https://files.pythonhosted.org/packages/c4/ed/dc78ac4426e1135f06331663198e3b75a4699068bd601bb3f15534c77147/google_cloud_storage-0.21.0-py2.py3-none-any.whl
-  sha256: cf452147b39cecf9e57c154b520a2328971d65996cad9a633a3db5afdad5b0ca
-  requires_dist:
-  - google-cloud-core>=0.21.0
 - kind: pypi
   name: googleapis-common-protos
   version: 1.65.0
@@ -2095,15 +2009,6 @@ packages:
   - pkg:pypi/httpcore?source=hash-mapping
   size: 45711
   timestamp: 1727821031365
-- kind: pypi
-  name: httplib2
-  version: 0.22.0
-  url: https://files.pythonhosted.org/packages/a8/6c/d2fbdaaa5959339d53ba38e94c123e4e84b8fbc4b84beb0e70d7c1608486/httplib2-0.22.0-py3-none-any.whl
-  sha256: 14ae0a53c1ba8f3d37e9e27cf37eabb0fb9980f435ba405d546948b009dd64dc
-  requires_dist:
-  - pyparsing<3,>=2.4.2 ; python_full_version < '3.0'
-  - pyparsing!=3.0.0,!=3.0.1,!=3.0.2,!=3.0.3,<4,>=2.4.2 ; python_full_version >= '3.1'
-  requires_python: '>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*'
 - kind: conda
   name: httpx
   version: 0.27.2
@@ -2310,25 +2215,6 @@ packages:
   purls: []
   size: 1370023
   timestamp: 1719463201255
-- kind: pypi
-  name: kubernetes
-  version: 31.0.0
-  url: https://files.pythonhosted.org/packages/fb/a8/17f5e28cecdbd6d48127c22abdb794740803491f422a11905c4569d8e139/kubernetes-31.0.0-py2.py3-none-any.whl
-  sha256: bf141e2d380c8520eada8b351f4e319ffee9636328c137aa432bc486ca1200e1
-  requires_dist:
-  - certifi>=14.5.14
-  - six>=1.9.0
-  - python-dateutil>=2.5.3
-  - pyyaml>=5.4.1
-  - google-auth>=1.0.1
-  - websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0
-  - requests
-  - requests-oauthlib
-  - oauthlib>=3.2.2
-  - urllib3>=1.24.2
-  - durationpy>=0.7
-  - adal>=1.0.2 ; extra == 'adal'
-  requires_python: '>=3.6'
 - kind: conda
   name: lcms2
   version: '2.16'
@@ -3446,42 +3332,6 @@ packages:
   size: 889086
   timestamp: 1724658547447
 - kind: pypi
-  name: networkx
-  version: 3.4.1
-  url: https://files.pythonhosted.org/packages/8b/4e/bf7a4ccc11ded738efd0bda39296c7cee3617e800f890f919de5c0fe00c8/networkx-3.4.1-py3-none-any.whl
-  sha256: e30a87b48c9a6a7cc220e732bffefaee585bdb166d13377734446ce1a0620eed
-  requires_dist:
-  - numpy>=1.24 ; extra == 'default'
-  - scipy!=1.11.0,!=1.11.1,>=1.10 ; extra == 'default'
-  - matplotlib>=3.7 ; extra == 'default'
-  - pandas>=2.0 ; extra == 'default'
-  - changelist==0.5 ; extra == 'developer'
-  - pre-commit>=3.2 ; extra == 'developer'
-  - mypy>=1.1 ; extra == 'developer'
-  - rtoml ; extra == 'developer'
-  - sphinx>=7.3 ; extra == 'doc'
-  - pydata-sphinx-theme>=0.15 ; extra == 'doc'
-  - sphinx-gallery>=0.16 ; extra == 'doc'
-  - numpydoc>=1.8.0 ; extra == 'doc'
-  - pillow>=9.4 ; extra == 'doc'
-  - texext>=0.6.7 ; extra == 'doc'
-  - myst-nb>=1.1 ; extra == 'doc'
-  - intersphinx-registry ; extra == 'doc'
-  - osmnx>=1.9 ; extra == 'example'
-  - momepy>=0.7.2 ; extra == 'example'
-  - contextily>=1.6 ; extra == 'example'
-  - seaborn>=0.13 ; extra == 'example'
-  - cairocffi>=1.7 ; extra == 'example'
-  - igraph>=0.11 ; extra == 'example'
-  - scikit-learn>=1.5 ; extra == 'example'
-  - lxml>=4.6 ; extra == 'extra'
-  - pygraphviz>=1.14 ; extra == 'extra'
-  - pydot>=3.0.1 ; extra == 'extra'
-  - sympy>=1.10 ; extra == 'extra'
-  - pytest>=7.2 ; extra == 'test'
-  - pytest-cov>=4.0 ; extra == 'test'
-  requires_python: '>=3.10'
-- kind: pypi
   name: numcodecs
   version: 0.13.1
   url: https://files.pythonhosted.org/packages/3a/cc/dc74d0bfdf9ec192332a089d199f1e543e747c556b5659118db7a437dcca/numcodecs-0.13.1-cp312-cp312-macosx_11_0_arm64.whl
@@ -3623,17 +3473,6 @@ packages:
   - numba>=0.59.1 ; extra == 'all'
   - jax>=0.4.27 ; extra == 'all'
   requires_python: '>=3.10'
-- kind: pypi
-  name: oauthlib
-  version: 3.2.2
-  url: https://files.pythonhosted.org/packages/7e/80/cab10959dc1faead58dc8384a781dfbf93cb4d33d50988f7a69f1b7c9bbe/oauthlib-3.2.2-py3-none-any.whl
-  sha256: 8139f29aac13e25d502680e9e19963e83f16838d48a0d71c287fe40e7067fbca
-  requires_dist:
-  - cryptography>=3.0.0 ; extra == 'rsa'
-  - blinker>=1.4.0 ; extra == 'signals'
-  - cryptography>=3.0.0 ; extra == 'signedtoken'
-  - pyjwt<3,>=2.0.0 ; extra == 'signedtoken'
-  requires_python: '>=3.6'
 - kind: conda
   name: openai
   version: 1.51.2
@@ -3963,18 +3802,6 @@ packages:
   size: 15436913
   timestamp: 1726879054912
 - kind: pypi
-  name: pendulum
-  version: 3.0.0
-  url: https://files.pythonhosted.org/packages/72/6a/68a8c7b8f1977d89aabfd0e2becb0921e5515dfb365097e98a522334a151/pendulum-3.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  sha256: 2165a8f33cb15e06c67070b8afc87a62b85c5a273e3aaa6bc9d15c93a4920d6f
-  requires_dist:
-  - python-dateutil>=2.6
-  - tzdata>=2020.1
-  - backports-zoneinfo>=0.2.1 ; python_full_version < '3.9'
-  - time-machine>=2.6.0 ; implementation_name != 'pypy'
-  - importlib-resources>=5.9.0 ; python_full_version < '3.9'
-  requires_python: '>=3.8'
-- kind: pypi
   name: pillow
   version: 10.4.0
   url: https://files.pythonhosted.org/packages/55/77/40daddf677897a923d5d33329acd52a2144d54a9644f2a5422c028c6bf2d/pillow-10.4.0-cp312-cp312-manylinux_2_28_x86_64.whl
@@ -4094,17 +3921,6 @@ packages:
   - mypy>=1.11.2 ; extra == 'type'
   requires_python: '>=3.8'
 - kind: pypi
-  name: prettytable
-  version: 3.11.0
-  url: https://files.pythonhosted.org/packages/d9/5a/bfdc26c0e19156992b1dc9de47f0b2e8992fe43db9981d814f860bdce2b3/prettytable-3.11.0-py3-none-any.whl
-  sha256: aa17083feb6c71da11a68b2c213b04675c4af4ce9c541762632ca3f2cb3546dd
-  requires_dist:
-  - wcwidth
-  - pytest ; extra == 'tests'
-  - pytest-cov ; extra == 'tests'
-  - pytest-lazy-fixtures ; extra == 'tests'
-  requires_python: '>=3.8'
-- kind: pypi
   name: prometheus-client
   version: 0.21.0
   url: https://files.pythonhosted.org/packages/84/2d/46ed6436849c2c88228c3111865f44311cff784b4aabcdef4ea2545dbc3d/prometheus_client-0.21.0-py3-none-any.whl
@@ -4145,18 +3961,6 @@ packages:
   url: https://files.pythonhosted.org/packages/37/45/d2a760580f8f2ed2825ba44cb370e0a4011ddef85e728f46ea3dd565a8a5/protobuf-5.28.2-cp38-abi3-macosx_10_9_universal2.whl
   sha256: a8b9403fc70764b08d2f593ce44f1d2920c5077bf7d311fefec999f8c40f78b7
   requires_python: '>=3.8'
-- kind: pypi
-  name: psutil
-  version: 6.0.0
-  url: https://files.pythonhosted.org/packages/19/74/f59e7e0d392bc1070e9a70e2f9190d652487ac115bb16e2eff6b22ad1d24/psutil-6.0.0-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  sha256: 5fd9a97c8e94059b0ef54a7d4baf13b405011176c3b6ff257c247cae0d560ecd
-  requires_dist:
-  - ipaddress ; python_full_version < '3.0' and extra == 'test'
-  - mock ; python_full_version < '3.0' and extra == 'test'
-  - enum34 ; python_full_version < '3.5' and extra == 'test'
-  - pywin32 ; sys_platform == 'win32' and extra == 'test'
-  - wmi ; sys_platform == 'win32' and extra == 'test'
-  requires_python: '>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*'
 - kind: conda
   name: pthread-stubs
   version: '0.4'
@@ -4174,12 +3978,6 @@ packages:
   purls: []
   size: 8252
   timestamp: 1726802366959
-- kind: pypi
-  name: pulp
-  version: 2.9.0
-  url: https://files.pythonhosted.org/packages/64/10/704c18b5960b3f9b10efcc859e11881ad90f1e44008e181d2b10cd305a63/PuLP-2.9.0-py3-none-any.whl
-  sha256: ad6a9b566d8458f4d05f4bfe2cea59e32885dd1da6929a361be579222107987c
-  requires_python: '>=3.7'
 - kind: pypi
   name: py-spy
   version: 0.3.14
@@ -4347,7 +4145,7 @@ packages:
   name: pymc-server
   version: 0.0.1
   path: ./
-  sha256: 2c0f464abc7d5ed42a05b8c39658cc50cd4fc5b911e40bfc259bd591d135da39
+  sha256: afac5c87c6af6a043ab61319b5fe70587f5b97e671b4d2e402a71eb819eeadbc
   requires_dist:
   - click
   - s3fs>=2024.9.0,<2025 ; extra == 'client'
@@ -4539,14 +4337,6 @@ packages:
   - pkg:pypi/python-dateutil?source=hash-mapping
   size: 222742
   timestamp: 1709299922152
-- kind: pypi
-  name: python-dotenv
-  version: 1.0.1
-  url: https://files.pythonhosted.org/packages/6a/3e/b68c118422ec867fa7ab88444e1274aa40681c606d59ac27de5a5588f082/python_dotenv-1.0.1-py3-none-any.whl
-  sha256: f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a
-  requires_dist:
-  - click>=5.0 ; extra == 'cli'
-  requires_python: '>=3.8'
 - kind: conda
   name: python-tzdata
   version: '2024.2'
@@ -5073,16 +4863,6 @@ packages:
   - chardet<6,>=3.0.2 ; extra == 'use-chardet-on-py3'
   requires_python: '>=3.8'
 - kind: pypi
-  name: requests-oauthlib
-  version: 2.0.0
-  url: https://files.pythonhosted.org/packages/3b/5d/63d4ae3b9daea098d5d6f5da83984853c1bbacd5dc826764b249fe119d24/requests_oauthlib-2.0.0-py2.py3-none-any.whl
-  sha256: 7dd8a5c40426b779b0868c404bdef9768deccf22749cde15852df527e6269b36
-  requires_dist:
-  - oauthlib>=3.0.0
-  - requests>=2.0.0
-  - oauthlib[signedtoken]>=3.0.0 ; extra == 'rsa'
-  requires_python: '>=3.4'
-- kind: pypi
   name: rich
   version: 13.9.2
   url: https://files.pythonhosted.org/packages/67/91/5474b84e505a6ccc295b2d322d90ff6aa0746745717839ee0c5fb4fdcceb/rich-13.9.2-py3-none-any.whl
@@ -5278,103 +5058,6 @@ packages:
   size: 14259
   timestamp: 1620240338595
 - kind: pypi
-  name: skypilot
-  version: 0.6.1
-  url: https://files.pythonhosted.org/packages/bb/43/52db430f377dd15307e115decad1f8754223d7dd84be71e4ccee9b4ec824/skypilot-0.6.1-py3-none-any.whl
-  sha256: 5605ede40dd0d32a2421f1d6ca3bc0f89f16a51dd489e506dcdd212ce92873e5
-  requires_dist:
-  - wheel
-  - cachetools
-  - click>=7.0
-  - colorama
-  - cryptography
-  - jinja2>=3.0
-  - jsonschema
-  - networkx
-  - pandas>=1.3.0
-  - pendulum
-  - prettytable>=2.0.0
-  - python-dotenv
-  - rich
-  - tabulate
-  - typing-extensions
-  - filelock>=3.6.0
-  - packaging
-  - psutil
-  - pulp
-  - pyyaml!=5.4.*,>3.13
-  - requests
-  - urllib3<2 ; extra == 'all'
-  - awscli>=1.27.10 ; extra == 'all'
-  - botocore>=1.29.10 ; extra == 'all'
-  - boto3>=1.26.1 ; extra == 'all'
-  - colorama<0.4.5 ; extra == 'all'
-  - azure-cli>=2.31.0 ; extra == 'all'
-  - azure-core ; extra == 'all'
-  - azure-identity>=1.13.0 ; extra == 'all'
-  - azure-mgmt-network ; extra == 'all'
-  - azure-storage-blob ; extra == 'all'
-  - msgraph-sdk ; extra == 'all'
-  - ray[default]!=2.6.0,>=2.2.0 ; extra == 'all'
-  - google-api-python-client>=2.69.0 ; extra == 'all'
-  - google-cloud-storage ; extra == 'all'
-  - ibm-cloud-sdk-core ; extra == 'all'
-  - ibm-vpc ; extra == 'all'
-  - ibm-platform-services ; extra == 'all'
-  - ibm-cos-sdk ; extra == 'all'
-  - docker ; extra == 'all'
-  - oci ; extra == 'all'
-  - kubernetes>=20.0.0 ; extra == 'all'
-  - protobuf!=3.19.5,>=3.15.3 ; extra == 'all'
-  - pydantic!=2.0.*,!=2.1.*,!=2.2.*,!=2.3.*,!=2.4.*,<3 ; extra == 'all'
-  - runpod>=1.5.1 ; extra == 'all'
-  - cudo-compute>=0.1.10 ; extra == 'all'
-  - pyvmomi==8.0.1.0.2 ; extra == 'all'
-  - grpcio!=1.48.0,<=1.51.3,>=1.32.0 ; python_full_version < '3.10' and sys_platform != 'darwin' and extra == 'all'
-  - grpcio!=1.48.0,<=1.49.1,>=1.32.0 ; python_full_version < '3.10' and sys_platform == 'darwin' and extra == 'all'
-  - grpcio!=1.48.0,<=1.51.3,>=1.42.0 ; python_full_version >= '3.10' and sys_platform != 'darwin' and extra == 'all'
-  - grpcio!=1.48.0,<=1.49.1,>=1.42.0 ; python_full_version >= '3.10' and sys_platform == 'darwin' and extra == 'all'
-  - urllib3<2 ; extra == 'aws'
-  - awscli>=1.27.10 ; extra == 'aws'
-  - botocore>=1.29.10 ; extra == 'aws'
-  - boto3>=1.26.1 ; extra == 'aws'
-  - colorama<0.4.5 ; extra == 'aws'
-  - azure-cli>=2.31.0 ; extra == 'azure'
-  - azure-core ; extra == 'azure'
-  - azure-identity>=1.13.0 ; extra == 'azure'
-  - azure-mgmt-network ; extra == 'azure'
-  - azure-storage-blob ; extra == 'azure'
-  - msgraph-sdk ; extra == 'azure'
-  - ray[default]!=2.6.0,>=2.2.0 ; extra == 'azure'
-  - urllib3<2 ; extra == 'cloudflare'
-  - awscli>=1.27.10 ; extra == 'cloudflare'
-  - botocore>=1.29.10 ; extra == 'cloudflare'
-  - boto3>=1.26.1 ; extra == 'cloudflare'
-  - colorama<0.4.5 ; extra == 'cloudflare'
-  - cudo-compute>=0.1.10 ; extra == 'cudo'
-  - docker ; extra == 'docker'
-  - ray[default]!=2.6.0,>=2.2.0 ; extra == 'docker'
-  - google-api-python-client>=2.69.0 ; extra == 'gcp'
-  - google-cloud-storage ; extra == 'gcp'
-  - ibm-cloud-sdk-core ; extra == 'ibm'
-  - ibm-vpc ; extra == 'ibm'
-  - ibm-platform-services ; extra == 'ibm'
-  - ibm-cos-sdk ; extra == 'ibm'
-  - ray[default]!=2.6.0,>=2.2.0 ; extra == 'ibm'
-  - kubernetes>=20.0.0 ; extra == 'kubernetes'
-  - ray[default]!=2.6.0,>=2.2.0 ; extra == 'lambda'
-  - oci ; extra == 'oci'
-  - ray[default]!=2.6.0,>=2.2.0 ; extra == 'oci'
-  - protobuf!=3.19.5,>=3.15.3 ; extra == 'remote'
-  - pydantic!=2.0.*,!=2.1.*,!=2.2.*,!=2.3.*,!=2.4.*,<3 ; extra == 'remote'
-  - grpcio!=1.48.0,<=1.51.3,>=1.32.0 ; python_full_version < '3.10' and sys_platform != 'darwin' and extra == 'remote'
-  - grpcio!=1.48.0,<=1.49.1,>=1.32.0 ; python_full_version < '3.10' and sys_platform == 'darwin' and extra == 'remote'
-  - grpcio!=1.48.0,<=1.51.3,>=1.42.0 ; python_full_version >= '3.10' and sys_platform != 'darwin' and extra == 'remote'
-  - grpcio!=1.48.0,<=1.49.1,>=1.42.0 ; python_full_version >= '3.10' and sys_platform == 'darwin' and extra == 'remote'
-  - runpod>=1.5.1 ; extra == 'runpod'
-  - ray[default]!=2.6.0,>=2.2.0 ; extra == 'scp'
-  - pyvmomi==8.0.1.0.2 ; extra == 'vsphere'
-- kind: pypi
   name: smart-open
   version: 7.0.5
   url: https://files.pythonhosted.org/packages/06/bc/706838af28a542458bffe74a5d0772ca7f207b5495cd9fccfce61ef71f2a/smart_open-7.0.5-py3-none-any.whl
@@ -5433,14 +5116,6 @@ packages:
   size: 15064
   timestamp: 1708953086199
 - kind: pypi
-  name: tabulate
-  version: 0.9.0
-  url: https://files.pythonhosted.org/packages/40/44/4a5f08c96eb108af5cb50b41f76142f0afa346dfa99d5296fe7202a11854/tabulate-0.9.0-py3-none-any.whl
-  sha256: 024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f
-  requires_dist:
-  - wcwidth ; extra == 'widechars'
-  requires_python: '>=3.7'
-- kind: pypi
   name: textual
   version: 0.83.0
   url: https://files.pythonhosted.org/packages/18/39/6cec279ca41dcacb1c92ad6e4467c9e88db4eb4d2f02300c66218ec432de/textual-0.83.0-py3-none-any.whl
@@ -5459,14 +5134,6 @@ packages:
   url: https://files.pythonhosted.org/packages/4b/2c/ffbf7a134b9ab11a67b0cf0726453cedd9c5043a4fe7a35d1cefa9a1bcfb/threadpoolctl-3.5.0-py3-none-any.whl
   sha256: 56c1e26c150397e58c4926da8eeee87533b1e32bef131bd4bf6a2f45f3185467
   requires_python: '>=3.8'
-- kind: pypi
-  name: time-machine
-  version: 2.16.0
-  url: https://files.pythonhosted.org/packages/a1/cb/93bc0e51bea4e171a85151dbba3c3b3f612b50b953cd3076f5b4f0db9e14/time_machine-2.16.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  sha256: 317b68b56a9c3731e0cf8886e0f94230727159e375988b36c60edce0ddbcb44a
-  requires_dist:
-  - python-dateutil
-  requires_python: '>=3.9'
 - kind: conda
   name: tk
   version: 8.6.13
@@ -5592,12 +5259,6 @@ packages:
   - pytest-cov ; extra == 'test'
   requires_python: '>=3.7'
 - kind: pypi
-  name: uritemplate
-  version: 4.1.1
-  url: https://files.pythonhosted.org/packages/81/c0/7461b49cd25aeece13766f02ee576d1db528f1c37ce69aee300e075b485b/uritemplate-4.1.1-py2.py3-none-any.whl
-  sha256: 830c08b8d99bdd312ea4ead05994a38e8936266f84b9a7878232db50b044e02e
-  requires_python: '>=3.6'
-- kind: pypi
   name: urllib3
   version: 2.2.3
   url: https://files.pythonhosted.org/packages/ce/d9/5f4c13cecde62396b0d3fe530a50ccea91e7dfc1ccf0e09c228841bb5ba8/urllib3-2.2.3-py3-none-any.whl
@@ -5639,26 +5300,6 @@ packages:
   - setuptools>=68 ; extra == 'test'
   - time-machine>=2.10 ; platform_python_implementation == 'CPython' and extra == 'test'
   requires_python: '>=3.7'
-- kind: pypi
-  name: wcwidth
-  version: 0.2.13
-  url: https://files.pythonhosted.org/packages/fd/84/fd2ba7aafacbad3c4201d395674fc6348826569da3c0937e75505ead3528/wcwidth-0.2.13-py2.py3-none-any.whl
-  sha256: 3da69048e4540d84af32131829ff948f1e022c1c6bdb8d6102117aac784f6859
-  requires_dist:
-  - backports-functools-lru-cache>=1.2.1 ; python_full_version < '3.2'
-- kind: pypi
-  name: websocket-client
-  version: 1.8.0
-  url: https://files.pythonhosted.org/packages/5a/84/44687a29792a70e111c5c477230a72c4b957d88d16141199bf9acb7537a3/websocket_client-1.8.0-py3-none-any.whl
-  sha256: 17b44cc997f5c498e809b22cdf2d9c7a9e71c02c8cc2b6c56e7c2d1239bfa526
-  requires_dist:
-  - sphinx>=6.0 ; extra == 'docs'
-  - sphinx-rtd-theme>=1.1.0 ; extra == 'docs'
-  - myst-parser>=2.0.0 ; extra == 'docs'
-  - python-socks ; extra == 'optional'
-  - wsaccel ; extra == 'optional'
-  - websockets ; extra == 'test'
-  requires_python: '>=3.8'
 - kind: conda
   name: wheel
   version: 0.44.0

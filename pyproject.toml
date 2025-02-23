@@ -16,7 +16,7 @@ classifiers = [
 dependencies = [
     "Click",
     "ray[default]",
-    "skypilot==0.7.0",
+    "skypilot==0.8.0",
     "hiyapyco'"
 ]
 [dependencies]

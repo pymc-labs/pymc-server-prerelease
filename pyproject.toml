@@ -17,7 +17,7 @@ dependencies = [
     "Click",
     "ray[default]",
     "skypilot==0.7.0",
-    "hiyapyco'"
+    "hiyapyco"
 ]
 [dependencies]
 #skypilot = "0.7.0"

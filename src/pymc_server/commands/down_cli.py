@@ -7,9 +7,51 @@ from sky import global_user_state, exceptions, core
 from sky.usage import usage_lib
 from sky.utils import controller_utils,subprocess_utils
 from rich import progress as rich_progress
-
-
 from sky.cli import _get_glob_clusters
+
+import click
+from sky.cli import (
+    _DocumentedCodeCommand,
+    _get_shell_complete_args,
+    _complete_cluster_name,
+)
+
+def setup_down_factory(func):
+    options = [
+        click.command(cls=_DocumentedCodeCommand),
+        click.argument('clusters',
+                        nargs=-1,
+                        required=False,
+                        **_get_shell_complete_args(_complete_cluster_name)),
+        click.option('--all',
+                      '-a',
+                      default=None,
+                      is_flag=True,
+                      help='Tear down all existing clusters.'),
+        click.option('--yes',
+                      '-y',
+                      is_flag=True,
+                      default=False,
+                      required=False,
+                      help='Skip confirmation prompt.'),
+        click.option(
+            '--purge',
+            '-p',
+            is_flag=True,
+            default=False,
+            required=False,
+            help=('(Advanced) Forcefully remove the cluster(s) from '
+                  'SkyPilot\'s cluster table, even if the actual cluster termination '
+                  'failed on the cloud. WARNING: This flag should only be set sparingly'
+                  ' in certain manual troubleshooting scenarios; with it set, it is the'
+                  ' user\'s responsibility to ensure there are no leaked instances and '
+                  'related resources.')),
+    ]
+    for option in reversed(options):
+        func = option(func)
+    return func
+
+
 
 prefix = "pymcs"
 def local_down():

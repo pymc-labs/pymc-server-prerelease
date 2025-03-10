@@ -19,7 +19,8 @@ from sky.usage import usage_lib
 from sky.cli import _launch_with_confirm
 
 from pymc_server.utils.names import generate_cluster_name
-from pymc_server.utils.yaml import get_config_from_yaml,load_chain_dag_from_yaml
+from pymc_server.utils.yaml import get_config_from_yaml, load_chain_dag_from_yaml, get_auto_stop, _make_task_or_dag_from_entrypoint_with_overrides
+
 
 from sky.cli import (
     status as sky_status,
@@ -356,6 +357,9 @@ def launch_2(
 
     # NOTE(dev): Keep the docstring consistent between the Python API and CLI.
     env = _merge_env_vars(env_file, env)
+
+    auto_idle_minutes,auto_down = get_auto_stop(entrypoint,module_name,base_config_folder)
+
     controller_utils.check_cluster_name_not_controller(
         cluster, operation_str='Launching tasks on it')
     if backend_name is None:
@@ -420,125 +424,9 @@ def launch_2(
                          no_setup=no_setup,
                          clone_disk_from=clone_disk_from)
 
+    cluster_records = core.status(cluster_names='cluster_name',refresh=False)
+    handle = cluster_records[0]['handle']
+    head_ip = handle.external_ips()[0]
     click.secho(f'{colorama.Fore.YELLOW}new cluster: '
                 f'{colorama.Style.RESET_ALL}{cluster_name}')
 
-
-
-
-
-def _make_task_or_dag_from_entrypoint_with_overrides(
-    entrypoint: Tuple[str, ...],
-    module_name:Optional[str],
-    base_config_folder:Optional[str],
-    *,
-    entrypoint_name: str = 'Task',
-    name: Optional[str] = None,
-    workdir: Optional[str] = None,
-    cloud: Optional[str] = None,
-    region: Optional[str] = None,
-    zone: Optional[str] = None,
-    gpus: Optional[str] = None,
-    cpus: Optional[str] = None,
-    memory: Optional[str] = None,
-    instance_type: Optional[str] = None,
-    num_nodes: Optional[int] = None,
-    use_spot: Optional[bool] = None,
-    image_id: Optional[str] = None,
-    disk_size: Optional[int] = None,
-    disk_tier: Optional[str] = None,
-    ports: Optional[Tuple[str]] = None,
-    env: Optional[List[Tuple[str, str]]] = None,
-    field_to_ignore: Optional[List[str]] = None,
-    # job launch specific
-    job_recovery: Optional[str] = None,
-) -> Union[sky.Task, sky.Dag]:
-    """Creates a task or a dag from an entrypoint with overrides.
-
-    Returns:
-        A dag iff the entrypoint is YAML and contains more than 1 task.
-        Otherwise, a task.
-    """
-    #entrypoint = ' '.join(entrypoint)
-
-    configs, is_yaml,module_config_path = get_config_from_yaml(entrypoint,module_name,base_config_folder)
-    click.secho(f'{colorama.Fore.GREEN}used base_config_folder:'
-                f'{colorama.Style.RESET_ALL}{base_config_folder}')
-    click.secho(f'{colorama.Fore.GREEN}used entrypoint:'
-                f'{colorama.Style.RESET_ALL}{entrypoint}')
-
-    #is_yaml, _ = _check_yaml(entrypoint)
-    entrypoint: Optional[str]
-    if is_yaml:
-        # Treat entrypoint as a yaml.
-        click.secho(f'{entrypoint_name} from YAML spec: ',
-                    fg='yellow',
-                    nl=False)
-        click.secho(entrypoint, bold=True)
-    else:
-        if not entrypoint:
-            entrypoint = None
-        else:
-            # Treat entrypoint as a bash command.
-            click.secho(f'{entrypoint_name} from command: ',
-                        fg='yellow',
-                        nl=False)
-            click.secho(entrypoint, bold=True)
-    override_params = _parse_override_params(cloud=cloud,
-                                             region=region,
-                                             zone=zone,
-                                             gpus=gpus,
-                                             cpus=cpus,
-                                             memory=memory,
-                                             instance_type=instance_type,
-                                             use_spot=use_spot,
-                                             image_id=image_id,
-                                             disk_size=disk_size,
-                                             disk_tier=disk_tier,
-                                             ports=ports)
-    if field_to_ignore is not None:
-        _pop_and_ignore_fields_in_override_params(override_params,
-                                                  field_to_ignore)
-
-    if is_yaml:
-        assert entrypoint is not None
-        usage_lib.messages.usage.update_user_task_yaml(configs[0])
-        dag = load_chain_dag_from_yaml(configs = configs)
-        #task = dag.tasks[0]
-        #usage_lib.messages.usage.update_user_task_yaml(entrypoint)
-
-        if len(dag.tasks) > 1:
-            # When the dag has more than 1 task. It is unclear how to
-            # override the params for the dag. So we just ignore the
-            # override params.
-            if override_params:
-                click.secho(
-                    f'WARNING: override params {override_params} are ignored, '
-                    'since the yaml file contains multiple tasks.',
-                    fg='yellow')
-            return dag
-        assert len(dag.tasks) == 1, (
-            f'If you see this, please file an issue; tasks: {dag.tasks}')
-        task = dag.tasks[0]
-    else:
-        task = sky.Task(name='pymc-cmd', run=entrypoint)
-        task.set_resources({sky.Resources()})
-        # env update has been done for DAG in load_chain_dag_from_yaml for YAML.
-        task.update_envs(env)
-
-    # Override.
-    if workdir is not None:
-        task.workdir = workdir
-
-    # job launch specific.
-    if job_recovery is not None:
-        override_params['job_recovery'] = job_recovery
-
-    task.set_resources_override(override_params)
-
-    if num_nodes is not None:
-        task.num_nodes = num_nodes
-    if name is not None:
-        task.name = name
-
-    return task

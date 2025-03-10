@@ -448,6 +448,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/ae/50/64c94cfc4db8d9ed07da71427a936b5a2bd2b27c66269b42fbda82c7c7a4/grpcio-1.70.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/73/05/0ad1bb1305de0278457e28069a91c5d03f9e2d014e54ac505abfa56ba3e7/h5netcdf-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/fa/63/eeaacff417b393491beebabb8a3dc5342950409eb6d7b39d437289abdbae/h5py-3.12.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/03/3d/3f847839e28e354873c81ebc3d3322d6e73d0d386971e84c178b45e82ff4/HiYaPyCo-0.7.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/0f/2ba5fbcd631e3e88689309dbe978c5769e883e4b84ebfe7da30b43275c5a/jinja2-3.1.5-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/4a/4f9dbeb84e8850557c02365a0eee0649abe5eb1d84af92a25731c6c0f922/jsonschema-4.23.0-py3-none-any.whl
@@ -567,6 +568,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/30/5c/60eb8a063ea4cb8d7670af8fac3f2033230fc4b75f62669d67c66ac4e4b0/grpcio-1.70.0-cp312-cp312-macosx_10_14_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/73/05/0ad1bb1305de0278457e28069a91c5d03f9e2d014e54ac505abfa56ba3e7/h5netcdf-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0d/74/1009b663387c025e8fa5f3ee3cf3cd0d99b1ad5c72eeb70e75366b1ce878/h5py-3.12.1-cp312-cp312-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/03/3d/3f847839e28e354873c81ebc3d3322d6e73d0d386971e84c178b45e82ff4/HiYaPyCo-0.7.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/bd/0f/2ba5fbcd631e3e88689309dbe978c5769e883e4b84ebfe7da30b43275c5a/jinja2-3.1.5-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/4a/4f9dbeb84e8850557c02365a0eee0649abe5eb1d84af92a25731c6c0f922/jsonschema-4.23.0-py3-none-any.whl
@@ -701,6 +703,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/86/e9/3dfb5a3ff540636d46b8b723345e923e8c553d9b3f6a8d1b09b0d915eb46/grpcio-1.66.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/73/05/0ad1bb1305de0278457e28069a91c5d03f9e2d014e54ac505abfa56ba3e7/h5netcdf-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/fa/63/eeaacff417b393491beebabb8a3dc5342950409eb6d7b39d437289abdbae/h5py-3.12.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/03/3d/3f847839e28e354873c81ebc3d3322d6e73d0d386971e84c178b45e82ff4/HiYaPyCo-0.7.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/80/3a54838c3fb461f6fec263ebf3a3a41771bd05190238de3486aae8540c36/jinja2-3.1.4-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/4a/4f9dbeb84e8850557c02365a0eee0649abe5eb1d84af92a25731c6c0f922/jsonschema-4.23.0-py3-none-any.whl
@@ -825,6 +828,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a0/d5/b631445dff250a5301f51ff56c5fc917c7f955cd02fa55379f158a89abeb/grpcio-1.66.2-cp312-cp312-macosx_10_9_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/73/05/0ad1bb1305de0278457e28069a91c5d03f9e2d014e54ac505abfa56ba3e7/h5netcdf-1.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0d/74/1009b663387c025e8fa5f3ee3cf3cd0d99b1ad5c72eeb70e75366b1ce878/h5py-3.12.1-cp312-cp312-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/03/3d/3f847839e28e354873c81ebc3d3322d6e73d0d386971e84c178b45e82ff4/HiYaPyCo-0.7.0-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/80/3a54838c3fb461f6fec263ebf3a3a41771bd05190238de3486aae8540c36/jinja2-3.1.4-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/4a/4f9dbeb84e8850557c02365a0eee0649abe5eb1d84af92a25731c6c0f922/jsonschema-4.23.0-py3-none-any.whl
@@ -2411,6 +2415,15 @@ packages:
   requires_dist:
   - jinja2<4,>3
   - markupsafe<3
+  - pyyaml<7
+- kind: pypi
+  name: hiyapyco
+  version: 0.7.0
+  url: https://files.pythonhosted.org/packages/03/3d/3f847839e28e354873c81ebc3d3322d6e73d0d386971e84c178b45e82ff4/HiYaPyCo-0.7.0-py2.py3-none-any.whl
+  sha256: d56ae0f746506955c6b0072f7338f1cd50661bfd07c7ee9b49175a085fcbaf41
+  requires_dist:
+  - jinja2<4,>3
+  - markupsafe<4
   - pyyaml<7
 - kind: conda
   name: hpack
@@ -4834,11 +4847,13 @@ packages:
   name: pymc-server
   version: 0.0.1
   path: ./
-  sha256: cb3b744d0123849d4882a89ebd5fd0402f647a248eca252f24c4da582ac59c67
+  sha256: d229c14afa2424964f5ad92c5f6bc3fba3460d68bc305af669dd9907db5b046b
   requires_dist:
   - click
   - ray[default]
   - skypilot==0.7.0
+  - hiyapyco
+  - cryptography
   - s3fs>=2024.9.0,<2025 ; extra == 'client'
   requires_python: '>=3.8'
   editable: true

@@ -2,6 +2,6 @@ nutpie
 lifetimes
 numba
 ray[default]
-skypilot
-skypilot[gcp]
+skypilot==0.7.0
+skypilot[gcp]==0.7.0
 hiyapyco

@@ -50,7 +50,7 @@ platforms = ["linux-64"]
 [tool.pixi.feature.client.dependencies]
 python = {version = "==3.12.6"}
 six = ">=1.16.0,<2"
-pip = ">=24.2,<25"
+pip = ">=26.2.2,<27"
 setuptools = ">=75.1.0,<76"
 wheel = ">=0.44.0,<0.45"
 openai = ">=0.0.1"
